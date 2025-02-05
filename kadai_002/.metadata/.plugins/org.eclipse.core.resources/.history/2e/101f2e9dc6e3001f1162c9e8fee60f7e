@@ -1,0 +1,45 @@
+CREATE TABLE IF NOT EXISTS roles (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    furigana VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(50) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,    
+    role_id INT NOT NULL, 
+    enabled BOOLEAN NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
+    FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+CREATE TABLE IF NOT EXISTS shops (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,       -- PK: ID (unique_idの代わり)
+    category_id INT NOT NULL,                         -- FK: カテゴリID
+    name VARCHAR(50) NOT NULL,                        -- 名前
+    image VARCHAR(255),                               -- 画像
+    description VARCHAR(255) NOT NULL,                -- 店舗説明
+    business_hours VARCHAR(255),                      -- 営業時間
+    price INT,                                        -- 価格
+    postal_code VARCHAR(50) NOT NULL,                 -- 郵便番号
+    address VARCHAR(255) NOT NULL,                    -- 住所
+    phone_number VARCHAR(50) NOT NULL,                -- 電話番号
+    regular_holiday VARCHAR(50),                      -- 定休日
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 作成日時
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 更新日時
+    FOREIGN KEY (category_id) REFERENCES categories(id) -- カテゴリテーブルへの外部キー
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,       -- PK: ID (unique_idの代わり)
+    name VARCHAR(50) NOT NULL,                        -- 名前
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 作成日時
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 更新日時
+);
+

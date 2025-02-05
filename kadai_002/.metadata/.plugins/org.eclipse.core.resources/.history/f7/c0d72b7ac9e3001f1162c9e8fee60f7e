@@ -1,0 +1,48 @@
+-- rolesテーブル
+INSERT IGNORE INTO roles (id, name) VALUES (1, 'ROLE_GENERAL');
+INSERT IGNORE INTO roles (id, name) VALUES (2, 'ROLE_ADMIN');
+
+-- usersテーブル
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (1, '侍 太郎', 'サムライ タロウ', '101-0022', '東京都千代田区神田練塀町300番地', '090-1234-5678', 'taro.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 1, true);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (2, '侍 花子', 'サムライ ハナコ', '101-0022', '東京都千代田区神田練塀町300番地', '090-1234-5678', 'hanako.samurai@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 2, true);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (3, '侍 義勝', 'サムライ ヨシカツ', '638-0644', '奈良県五條市西吉野町湯川X-XX-XX', '090-1234-5678', 'yoshikatsu.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (4, '侍 幸美', 'サムライ サチミ', '342-0006', '埼玉県吉川市南広島X-XX-XX', '090-1234-5678', 'sachimi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (5, '侍 雅', 'サムライ ミヤビ', '527-0209', '滋賀県東近江市佐目町X-XX-XX', '090-1234-5678', 'miyabi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (6, '侍 正保', 'サムライ マサヤス', '989-1203', '宮城県柴田郡大河原町旭町X-XX-XX', '090-1234-5678', 'masayasu.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (7, '侍 真由美', 'サムライ マユミ', '951-8015', '新潟県新潟市松岡町X-XX-XX', '090-1234-5678', 'mayumi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (8, '侍 安民', 'サムライ ヤスタミ', '241-0033', '神奈川県横浜市旭区今川町X-XX-XX', '090-1234-5678', 'yasutami.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (9, '侍 章緒', 'サムライ アキオ', '739-2103', '広島県東広島市高屋町宮領X-XX-XX', '090-1234-5678', 'akio.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (10, '侍 祐子', 'サムライ ユウコ', '601-0761', '京都府南丹市美山町高野X-XX-XX', '090-1234-5678', 'yuko.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (11, '侍 秋美', 'サムライ アキミ', '606-8235', '京都府京都市左京区田中西春菜町X-XX-XX', '090-1234-5678', 'akimi.samurai@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '侍 信平', 'サムライ シンペイ', '673-1324', '兵庫県加東市新定X-XX-XX', '090-1234-5678', 'shinpei.samurai@example.com', 'password', 1, false);
+
+-- shopテーブル
+INSERT IGNORE INTO shops (id, category_id, name, image, description, business_hours, price, postal_code, address, phone_number, regular_holiday) VALUES
+(1, 1, '矢場とん本店', 'yabaton.jpg', '名古屋名物味噌カツの元祖！甘めの味噌ダレが絶品。', '11:00-21:00', 1500, '460-0011', '愛知県名古屋市中区大須3-6-18', '052-252-8810', 'なし'),
+(2, 2, '山本屋総本家', 'yamamotoya.jpg', '熱々の土鍋で煮込まれた味噌煮込みうどんが自慢。', '11:00-20:00', 1200, '460-0008', '愛知県名古屋市中区栄3-12-19', '052-241-5617', '水曜'),
+(3, 1, '世界の山ちゃん 栄店', 'yamachan.jpg', 'スパイシーな手羽先で有名。ビールとの相性抜群！', '17:00-24:00', 900, '460-0003', '愛知県名古屋市中区錦3-19-24', '052-252-3336', '日曜'),
+(4, 2, '蓬莱軒 本店', 'houraiken.jpg', 'ひつまぶし発祥の名店。炭火で焼かれたうなぎが絶品。', '11:30-14:00, 16:30-20:30', 3500, '456-0043', '愛知県名古屋市熱田区神宮2-10-26', '052-682-5598', '月曜'),
+(5, 3, 'コメダ珈琲店 本店', 'komeda.jpg', 'たっぷりクリームのシロノワールが人気。', '7:00-23:00', 700, '457-0862', '愛知県名古屋市南区砂口町1-12', '052-811-3331', 'なし'),
+(6, 1, '味仙 今池本店', 'misen.jpg', '台湾ラーメンの元祖！ピリ辛スープがクセになる。', '11:00-23:00', 1000, '464-0850', '愛知県名古屋市千種区今池1-12-10', '052-733-7670', '火曜'),
+(7, 2, 'フジヤマ55 栄店', 'fujiyama55.jpg', 'つけ麺が名物。濃厚な魚介スープが自慢。', '11:00-22:00', 1200, '460-0003', '愛知県名古屋市中区錦3-19-24', '052-684-6655', 'なし'),
+(8, 3, 'スガキヤ 名古屋駅店', 'sugakiya.jpg', '学生に人気のラーメン店。和風とんこつスープが特徴。', '10:00-20:00', 400, '450-0002', '愛知県名古屋市中村区名駅1-1-4', '052-588-3333', 'なし'),
+(9, 1, '天むす 千寿', 'tenmusu.jpg', '名古屋名物「天むす」。ふっくらしたエビ天入りのむすび。', '10:00-19:00', 700, '461-0001', '愛知県名古屋市東区泉1-2-3', '052-935-7000', '火曜'),
+(10, 2, '大須からあげ本舗', 'karaage.jpg', '大須商店街の名物。ジューシーなからあげが絶品。', '10:00-20:00', 500, '460-0011', '愛知県名古屋市中区大須2-18-45', '052-222-8888', 'なし'),
+(11, 1, '矢場とん 矢場町店', 'yabaton_yabacho.jpg', '矢場町駅すぐ！名物味噌カツが人気。', '11:00-21:00', 1500, '460-0008', '愛知県名古屋市中区大須3-6-18', '052-252-8810', 'なし'),
+(12, 3, 'まるや本店 名駅店', 'maruya.jpg', 'ひつまぶしが堪能できる老舗店。', '11:00-14:00, 17:00-21:00', 3200, '450-0002', '愛知県名古屋市中村区名駅3-25-9', '052-564-3755', 'なし'),
+(13, 2, '鯛福茶漬け たまひこ', 'tamahiko.jpg', '鯛の刺身を使った特製茶漬けが人気。', '11:30-14:30, 17:30-21:00', 2000, '461-0001', '愛知県名古屋市東区泉1-17-3', '052-982-8328', '月曜'),
+(14, 1, 'うな富士', 'unafuji.jpg', '炭火でじっくり焼き上げたうなぎ料理専門店。', '11:30-14:00, 17:00-20:00', 4000, '466-0842', '愛知県名古屋市昭和区檀溪通5-10', '052-931-5551', '水曜'),
+(15, 3, '台湾甜商店', 'taiwan_tenshoten.jpg', '台湾スイーツが味わえるカフェ。', '10:00-21:00', 800, '460-0003', '愛知県名古屋市中区錦3-24-24', '052-951-1234', 'なし'),
+(16, 2, 'いば昇', 'ibasho.jpg', 'ひつまぶしの老舗。お茶漬けスタイルが定番。', '11:00-14:30, 17:00-20:00', 3300, '450-0002', '愛知県名古屋市中村区名駅3-22-8', '052-563-0000', '火曜'),
+(17, 1, '手羽先専門店 あつた蓬莱軒', 'tebasaki_houraiken.jpg', '手羽先とひつまぶしの専門店。', '11:00-22:00', 2500, '456-0043', '愛知県名古屋市熱田区神宮2-10-26', '052-682-5598', '月曜'),
+(18, 2, '宮きしめん 神宮店', 'miyakishimen.jpg', '名古屋名物のきしめん。神宮前の人気店。', '10:00-17:00', 900, '456-0043', '愛知県名古屋市熱田区神宮1-1-1', '052-671-6631', 'なし'),
+(19, 3, 'カフェドクリエ 名古屋駅店', 'cafedecrie.jpg', 'コーヒーと軽食が楽しめるチェーンカフェ。', '7:00-22:00', 600, '450-0002', '愛知県名古屋市中村区名駅1-1-4', '052-584-3333', 'なし'),
+(20, 1, '天むす千寿 栄店', 'tenmusu_sakae.jpg', '手軽に食べられる天むすが人気。', '10:00-20:00', 700, '460-0008', '愛知県名古屋市中区栄3-6-20', '052-935-1234', '水曜'),
+(21, 1, 'すし道場 名駅店', 'sushidojo.jpg', '新鮮なネタが揃う回転寿司。', '11:00-22:00', 1200, '450-0002', '愛知県名古屋市中村区名駅1-1-4', '052-589-4444', 'なし'),
+(22, 2, '味仙 矢場町店', 'misen_yabacho.jpg', '台湾ラーメンで有名な味仙の支店。', '11:00-23:00', 1000, '460-0011', '愛知県名古屋市中区大須3-6-18', '052-733-5555', '火曜'),
+(23, 3, '花まる堂', 'hanamarudo.jpg', '和風パフェやあんみつが人気の甘味処。', '11:00-20:00', 900, '460-0008', '愛知県名古屋市中区栄3-2-20', '052-951-5678', 'なし'),
+(24, 1, 'どんきん 名駅店', 'donkin.jpg', 'お手頃価格の丼ぶり専門店。', '10:00-20:00', 600, '450-0002', '愛知県名古屋市中村区名駅3-5-10', '052-441-1234', '日曜'),
+(25, 2, 'タコスプラザ', 'tacosplaza.jpg', '名古屋風タコスが楽しめる専門店。', '12:00-22:00', 1000, '460-0012', '愛知県名古屋市中区大須1-2-10', '052-232-8888', '月曜'),
+(26, 1, 'あんかけスパ ハセガワ', 'ankakespa.jpg', '名古屋独特のあんかけスパゲティ専門店。', '11:00-20:00', 1200, '464-0850', '愛知県名古屋市千種区本山3-2-4', '052-123-5678', '火曜'),
+(27, 2, '天ぷら屋 鳴海', 'narumi_tempura.jpg', '職人が揚げる絶品天ぷらが楽しめる。', '17:00-22:00', 2500, '465-0008', '愛知県名古屋市名東区名東町1-8-3', '052-987-6543', '月曜'),
+(28, 3, 'ホットケーキの店 パンケーキ屋', 'pancakeya.jpg', '名古屋風ホットケーキの専門店。', '9:00-19:00', 800, '450-0002', '愛知県名古屋市中村区名駅5-3-2', '052-456-9870', '水曜');
