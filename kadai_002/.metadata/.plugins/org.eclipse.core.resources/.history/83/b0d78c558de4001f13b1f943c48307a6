@@ -1,0 +1,140 @@
+package com.example.nagoyameshi.controller;
+
+import com.example.nagoyameshi.entity.Shop;
+import com.example.nagoyameshi.form.ShopRegisterForm;
+import com.example.nagoyameshi.form.ShopEditForm;
+import com.example.nagoyameshi.repository.ShopRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/admin/shops")
+public class AdminShopController {
+
+    @Autowired
+    private ShopRepository shopRepository;
+
+    /**
+     * 名古屋飯店舗の一覧を表示
+     */
+    @GetMapping
+    public String index(Model model) {
+        List<Shop> shops = shopRepository.findAll();
+        model.addAttribute("shops", shops);
+        return "admin/shops/index";
+    }
+
+    /**
+     * 新規店舗登録フォームを表示
+     */
+    @GetMapping("/new")
+    public String newShop(Model model) {
+        model.addAttribute("shopRegisterForm", new ShopRegisterForm());
+        return "admin/shops/new";
+    }
+
+    /**
+     * 新規店舗を登録
+     */
+    @PostMapping
+    public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "admin/shops/new";
+        }
+
+        Shop shop = new Shop();
+        shop.setName(shopRegisterForm.getName());
+        shop.setDescription(shopRegisterForm.getDescription());
+        shop.setBusinessHours(shopRegisterForm.getBusinessHours());
+        shop.setPrice(shopRegisterForm.getPrice());
+        shop.setPostalCode(shopRegisterForm.getPostalCode());
+        shop.setAddress(shopRegisterForm.getAddress());
+        shop.setPhoneNumber(shopRegisterForm.getPhoneNumber());
+        shop.setRegularHoliday(shopRegisterForm.getRegularHoliday());
+        shop.setImage(shopRegisterForm.getImage());
+
+        shopRepository.save(shop);
+        redirectAttributes.addFlashAttribute("message", "店舗が正常に登録されました。");
+        return "redirect:/admin/shops";
+    }
+
+    /**
+     * 店舗の詳細情報を表示
+     */
+    @GetMapping("/{id}")
+    public String showShop(@PathVariable Long id, Model model) {
+        Shop shop = shopRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("無効な店舗ID: " + id));
+        model.addAttribute("shop", shop);
+        return "admin/shops/show";
+    }
+
+    /**
+     * 店舗編集フォームを表示
+     */
+    @GetMapping("/{id}/edit")
+    public String editShop(@PathVariable Long id, Model model) {
+        Shop shop = shopRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("無効な店舗ID: " + id));
+        ShopEditForm shopEditForm = new ShopEditForm();
+        shopEditForm.setName(shop.getName());
+        shopEditForm.setDescription(shop.getDescription());
+        shopEditForm.setBusinessHours(shop.getBusinessHours());
+        shopEditForm.setPrice(shop.getPrice());
+        shopEditForm.setPostalCode(shop.getPostalCode());
+        shopEditForm.setAddress(shop.getAddress());
+        shopEditForm.setPhoneNumber(shop.getPhoneNumber());
+        shopEditForm.setRegularHoliday(shop.getRegularHoliday());
+        shopEditForm.setImage(shop.getImage());
+
+        model.addAttribute("shopEditForm", shopEditForm);
+        model.addAttribute("shopId", id);
+        return "admin/shops/edit";
+    }
+
+    /**
+     * 店舗情報を更新
+     */
+    @PostMapping("/{id}")
+    public String updateShop(@PathVariable Long id,
+                             @Valid @ModelAttribute ShopEditForm shopEditForm,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "admin/shops/edit";
+        }
+
+        Shop shop = shopRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("無効な店舗ID: " + id));
+        shop.setName(shopEditForm.getName());
+        shop.setDescription(shopEditForm.getDescription());
+        shop.setBusinessHours(shopEditForm.getBusinessHours());
+        shop.setPrice(shopEditForm.getPrice());
+        shop.setPostalCode(shopEditForm.getPostalCode());
+        shop.setAddress(shopEditForm.getAddress());
+        shop.setPhoneNumber(shopEditForm.getPhoneNumber());
+        shop.setRegularHoliday(shopEditForm.getRegularHoliday());
+        shop.setImage(shopEditForm.getImage());
+
+        shopRepository.save(shop);
+        redirectAttributes.addFlashAttribute("message", "店舗情報が更新されました。");
+        return "redirect:/admin/shops";
+    }
+
+    /**
+     * 店舗を削除
+     */
+    @PostMapping("/{id}/delete")
+    public String deleteShop(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Shop shop = shopRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("無効な店舗ID: " + id));
+        shopRepository.delete(shop);
+        redirectAttributes.addFlashAttribute("message", "店舗が削除されました。");
+        return "redirect:/admin/shops";
+    }
+}

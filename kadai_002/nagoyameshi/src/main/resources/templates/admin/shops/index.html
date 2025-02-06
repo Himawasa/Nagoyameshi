@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragment :: meta}"></div>
+    <div th:replace="~{fragment :: styles}"></div>
+    <title>店舗一覧</title>
+</head>
+<body>
+    <div class="nagoyameshi-wrapper">
+        <!-- ヘッダー -->
+        <div th:replace="~{fragment :: header}"></div>
+
+        <main>
+            <div class="container pt-4 pb-5 nagoyameshi-container">
+                <h1 class="mb-4 text-center">店舗一覧</h1>
+
+                <div class="text-end mb-3">
+                    <a th:href="@{/admin/shops/register}" class="btn btn-primary">新規登録</a>
+                </div>
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>店舗名</th>
+                            <th>カテゴリ</th>
+                            <th>住所</th>
+                            <th>電話番号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="shop : ${shops}">
+                            <td th:text="${shop.name}"></td>
+                            <td th:text="${shop.categoryName}"></td>
+                            <td th:text="${shop.address}"></td>
+                            <td th:text="${shop.phoneNumber}"></td>
+                            <td>
+                                <a th:href="@{/admin/shops/{id}/edit(id=${shop.id})}" class="btn btn-sm btn-warning">編集</a>
+                                <form th:action="@{/admin/shops/{id}/delete(id=${shop.id})}" method="post" class="d-inline-block">
+                                    <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- フッター -->
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>
+
+    <div th:replace="~{fragment :: scripts}"></div>
+</body>
+</html>
