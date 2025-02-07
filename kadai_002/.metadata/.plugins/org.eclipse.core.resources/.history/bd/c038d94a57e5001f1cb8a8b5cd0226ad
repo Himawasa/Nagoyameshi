@@ -17,7 +17,7 @@ INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '侍 信平', 'サムライ シンペイ', '673-1324', '兵庫県加東市新定X-XX-XX', '090-1234-5678', 'shinpei.samurai@example.com', 'password', 1, false);
 
 -- shopsテーブルへのデータ挿入
-INSERT INTO shops (id, category_id, name, image, description, business_hours, price, postal_code, address, phone_number, regular_holiday) VALUES
+INSERT IGNORE INTO shops (id, category_id, name, image, description, business_hours, price, postal_code, address, phone_number, regular_holiday) VALUES
 (1, 1, 'ひつまぶし本店', 'house01.jpg', '名古屋名物のひつまぶしを提供する老舗。香ばしく焼き上げた鰻が絶品。', '11:00-21:00', 3000, '460-0008', '愛知県名古屋市中区栄X-XX-XX', '052-123-4567', '水曜'),
 (2, 1, '味噌カツ亭', 'house02.jpg', '八丁味噌を使った秘伝のタレが自慢の味噌カツ専門店。', '10:30-22:00', 1500, '450-0002', '愛知県名古屋市中村区名駅X-XX-XX', '052-234-5678', '火曜'),
 (3, 3, '手羽先唐揚げの店', 'house03.jpg', 'スパイシーなタレで味付けされた名古屋名物の手羽先唐揚げが人気。', '16:00-24:00', 1200, '460-0011', '愛知県名古屋市中区大須X-XX-XX', '052-345-6789', '月曜'),
