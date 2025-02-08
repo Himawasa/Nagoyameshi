@@ -24,12 +24,12 @@
                                 <input type="text" id="name" th:field="*{name}" class="form-control" required />
                             </div>
 
-                            <div class="mb-3">
-                                <label for="category" class="form-label">カテゴリ</label>
-                                <select id="category" th:field="*{categoryId}" class="form-select" required>
-                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                                </select>
-                            </div>
+<!--                            <div class="mb-3">-->
+<!--                                <label for="category" class="form-label">カテゴリ</label>-->
+<!--                                <select id="category" th:field="*{categoryId}" class="form-select" required>-->
+<!--                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>-->
+<!--                                </select>-->
+<!--                            </div>-->
 
                             <div class="mb-3">
                                 <label for="description" class="form-label">説明</label>
