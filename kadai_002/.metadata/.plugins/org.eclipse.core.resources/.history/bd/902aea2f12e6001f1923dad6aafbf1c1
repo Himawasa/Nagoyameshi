@@ -39,9 +39,9 @@
                         <tr>
                             <th>ID</th>
                             <th>店舗名</th>
+                            <th>カテゴリ</th>
                             <th>住所</th>
                             <th>電話番号</th>
-<!--                            <th>電話番号</th>-->
                             <th>操作</th>
                         </tr>
                     </thead>
