@@ -1,0 +1,45 @@
+package com.example.nagoyameshi.controller; // 適切なパッケージ名に変更
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.nagoyameshi.entity.House; // `House` エンティティ（変更禁止）
+import com.example.nagoyameshi.repository.HouseRepository; // `HouseRepository`（変更禁止）
+
+/**
+ * 管理画面の店舗一覧を表示するコントローラー
+ * `/admin/houses` で `shops` テーブルのデータを取得し、表示する
+ */
+@Controller
+@RequestMapping("/admin/houses") // ルートは変更しない
+public class AdminHouseController {
+    private final HouseRepository houseRepository;         
+
+    /**
+     * コンストラクタインジェクション
+     * @param houseRepository `shops` テーブルを管理するリポジトリ
+     */
+    public AdminHouseController(HouseRepository houseRepository) {
+        this.houseRepository = houseRepository;                
+    }	
+
+    /**
+     * 店舗一覧ページ
+     * @param model テンプレートへ渡すデータモデル
+     * @return `admin/houses/index` テンプレート
+     */
+    @GetMapping
+    public String index(Model model) {
+        // `shops` テーブルのデータをすべて取得
+        List<House> houses = houseRepository.findAll();       
+
+        // テンプレートに `houses` を渡す
+        model.addAttribute("houses", houses);             
+
+        return "admin/houses/index"; // パスも変更しない
+    }  
+}

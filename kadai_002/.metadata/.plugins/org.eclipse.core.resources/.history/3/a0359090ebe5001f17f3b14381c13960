@@ -1,0 +1,77 @@
+package com.example.nagoyameshi.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+/**
+ * Spring Securityの設定クラス
+ */
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class WebSecurityConfig {
+
+    /**
+     * HTTPセキュリティ設定を構築します
+     * 
+     * @param http HTTPセキュリティ設定のオブジェクト
+     * @return SecurityFilterChain セキュリティフィルターチェーン
+     * @throws Exception 設定に失敗した場合の例外
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests((requests) -> requests
+                // すべてのユーザーにアクセスを許可するURL
+                .requestMatchers(
+                    "/css/**", 
+                    "/images/**", 
+                    "/js/**", 
+                    "/storage/**", 
+                    "/", 
+                    "/signup/**", 
+                    "/shops", 
+                    "/shops/{id}", 
+                    "/reviews/**",
+                    "/admin/**"  // 管理者ページも一時的に全アクセス許可
+                ).permitAll()
+                // 管理者にのみアクセスを許可するURL
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                // それ以外のリクエストには認証が必要
+                .anyRequest().authenticated()
+            )
+            // ログイン設定
+            .formLogin((form) -> form
+                .loginPage("/login")              // ログインページのURL
+                .loginProcessingUrl("/login")     // ログイン処理のURL
+                .defaultSuccessUrl("/shops")      // ログイン成功時のリダイレクト先
+                .failureUrl("/login?error")       // ログイン失敗時のリダイレクト先
+                .permitAll()
+            )
+            // ログアウト設定
+            .logout((logout) -> logout
+                .logoutSuccessUrl("/?loggedOut")  // ログアウト成功時のリダイレクト先
+                .permitAll()
+            )
+            // 特定のリクエストに対してCSRF保護を無効化
+            .csrf().ignoringRequestMatchers("/stripe/webhook");
+        
+        return http.build();
+    }
+
+    /**
+     * パスワードをハッシュ化するためのエンコーダーを定義
+     * 
+     * @return PasswordEncoder パスワードエンコーダー
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}

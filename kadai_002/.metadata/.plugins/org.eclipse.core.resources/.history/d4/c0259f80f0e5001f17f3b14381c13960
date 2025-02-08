@@ -1,0 +1,6 @@
+<tbody>
+    <tr th:each="shop : ${houses}">
+        <!-- オブジェクト全体をJSON形式で表示 -->
+        <td colspan="6" th:text="${#objects.toString(shop)}"></td>
+    </tr>
+</tbody>

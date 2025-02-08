@@ -1,0 +1,129 @@
+package com.example.nagoyameshi.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.nagoyameshi.entity.Shop;
+import com.example.nagoyameshi.form.ShopEditForm;
+import com.example.nagoyameshi.form.ShopRegisterForm;
+import com.example.nagoyameshi.repository.CategoryRepository;
+import com.example.nagoyameshi.service.ShopService;
+
+@Controller
+@RequestMapping("/admin/shops")
+public class AdminShopController {
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @GetMapping
+    public String index(Model model) {
+        List<Shop> shops = shopService.findAll();
+        model.addAttribute("shops", shops);
+        return "admin/shops/index";
+    }
+
+    @GetMapping("/new")
+    public String newShop(Model model) {
+        model.addAttribute("shopRegisterForm", new ShopRegisterForm());
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "admin/shops/register";
+    }
+
+    @PostMapping
+    public String create(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "admin/shops/register";
+        }
+
+        Shop shop = new Shop();
+        shop.setName(shopRegisterForm.getName());
+        shop.setDescription(shopRegisterForm.getDescription());
+        shop.setCategoryId(shopRegisterForm.getCategoryId());
+        shop.setPrice(shopRegisterForm.getPrice());
+        shop.setPostalCode(shopRegisterForm.getPostalCode());
+        shop.setAddress(shopRegisterForm.getAddress());
+        shop.setPhoneNumber(shopRegisterForm.getPhoneNumber());
+        shop.setRegularHoliday(shopRegisterForm.getRegularHoliday());
+        shop.setBusinessHours(shopRegisterForm.getBusinessHours());
+        shopService.save(shop);
+
+        redirectAttributes.addFlashAttribute("message", "ショップを登録しました。");
+        return "redirect:/admin/shops";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Shop> shopOpt = shopService.findById(id);
+        if (shopOpt.isPresent()) {
+            Shop shop = shopOpt.get();
+            ShopEditForm shopEditForm = new ShopEditForm();
+            shopEditForm.setId(shop.getId());
+            shopEditForm.setName(shop.getName());
+            shopEditForm.setDescription(shop.getDescription());
+            shopEditForm.setCategoryId(shop.getCategoryId());
+            shopEditForm.setPrice(shop.getPrice());
+            shopEditForm.setPostalCode(shop.getPostalCode());
+            shopEditForm.setAddress(shop.getAddress());
+            shopEditForm.setPhoneNumber(shop.getPhoneNumber());
+            shopEditForm.setRegularHoliday(shop.getRegularHoliday());
+            shopEditForm.setBusinessHours(shop.getBusinessHours());
+
+            model.addAttribute("shopEditForm", shopEditForm);
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "admin/shops/edit";
+        } else {
+            return "redirect:/admin/shops";
+        }
+    }
+
+    @PostMapping("/{id}")
+    public String update(@Valid @ModelAttribute ShopEditForm shopEditForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "admin/shops/edit";
+        }
+
+        Optional<Shop> shopOpt = shopService.findById(shopEditForm.getId());
+        if (shopOpt.isPresent()) {
+            Shop shop = shopOpt.get();
+            shop.setName(shopEditForm.getName());
+            shop.setDescription(shopEditForm.getDescription());
+            shop.setCategoryId(shopEditForm.getCategoryId());
+            shop.setPrice(shopEditForm.getPrice());
+            shop.setPostalCode(shopEditForm.getPostalCode());
+            shop.setAddress(shopEditForm.getAddress());
+            shop.setPhoneNumber(shopEditForm.getPhoneNumber());
+            shop.setRegularHoliday(shopEditForm.getRegularHoliday());
+            shop.setBusinessHours(shopEditForm.getBusinessHours());
+            shopService.save(shop);
+
+            redirectAttributes.addFlashAttribute("message", "ショップ情報を更新しました。");
+            return "redirect:/admin/shops";
+        } else {
+            return "redirect:/admin/shops";
+        }
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        shopService.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "ショップを削除しました。");
+        return "redirect:/admin/shops";
+    }
+}

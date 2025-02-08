@@ -1,0 +1,116 @@
+package com.example.nagoyameshi.entity;
+
+import java.sql.Timestamp; // タイムスタンプ型を使用
+
+import jakarta.persistence.Column; // カラムのアノテーション
+import jakarta.persistence.Entity; // エンティティ指定
+import jakarta.persistence.GeneratedValue; // 主キーの自動生成
+import jakarta.persistence.GenerationType; // 主キーの生成方法
+import jakarta.persistence.Id; // 主キー指定
+import jakarta.persistence.Table; // テーブル指定
+
+import lombok.Data; // Lombokでゲッター・セッターなどを自動生成
+
+/**
+ * Shopエンティティクラス
+ * "shops" テーブルと対応するクラスです。
+ * 店舗情報を表現するデータモデル。
+ */
+@Entity
+@Table(name = "shops") // テーブル名を "shops" に設定
+@Data // Lombokを使用してゲッター、セッターなどを自動生成
+public class House { // クラス名は変更禁止のため House のまま
+
+    /**
+     * 主キー（ID）
+     * データベースの "id" 列に対応
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 主キーの自動生成
+    @Column(name = "id")
+    private Integer id;
+
+    /**
+     * カテゴリーID（外部キー）
+     * データベースの "category_id" 列に対応
+     */
+    @Column(name = "category_id", nullable = false)
+    private Integer categoryId;
+
+    /**
+     * 店舗名
+     * データベースの "name" 列に対応
+     */
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
+
+    /**
+     * 店舗の画像ファイル名
+     * データベースの "image" 列に対応
+     */
+    @Column(name = "image", length = 255)
+    private String image;
+
+    /**
+     * 店舗の説明
+     * データベースの "description" 列に対応
+     */
+    @Column(name = "description", nullable = false, length = 255)
+    private String description;
+
+    /**
+     * 営業時間
+     * データベースの "business_hours" 列に対応
+     */
+    @Column(name = "business_hours", length = 255)
+    private String businessHours;
+
+    /**
+     * 料金
+     * データベースの "price" 列に対応
+     */
+    @Column(name = "price", nullable = false)
+    private Integer price;
+
+    /**
+     * 郵便番号
+     * データベースの "postal_code" 列に対応
+     */
+    @Column(name = "postal_code", nullable = false, length = 50)
+    private String postalCode;
+
+    /**
+     * 住所
+     * データベースの "address" 列に対応
+     */
+    @Column(name = "address", nullable = false, length = 255)
+    private String address;
+
+    /**
+     * 電話番号
+     * データベースの "phone_number" 列に対応
+     */
+    @Column(name = "phone_number", nullable = false, length = 50)
+    private String phoneNumber;
+
+    /**
+     * 定休日
+     * データベースの "regular_holiday" 列に対応
+     */
+    @Column(name = "regular_holiday", length = 50)
+    private String regularHoliday;
+
+    /**
+     * 作成日時
+     * データベースの "created_at" 列に対応
+     */
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    /**
+     * 更新日時
+     * データベースの "updated_at" 列に対応
+     */
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private Timestamp updatedAt;
+}

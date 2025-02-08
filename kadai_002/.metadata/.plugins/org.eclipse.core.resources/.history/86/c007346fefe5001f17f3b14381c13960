@@ -1,0 +1,97 @@
+package com.example.nagoyameshi.repository;
+
+// Java 標準ライブラリ
+import java.util.List; // 複数のHouseオブジェクトを扱うためのリストクラス
+
+// Spring Data JPAリポジトリとページングサポート
+import org.springframework.data.domain.Page; // ページングされたデータを扱うためのクラス
+import org.springframework.data.domain.Pageable; // ページングおよびソートの設定を提供
+import org.springframework.data.jpa.repository.JpaRepository; // JPAを使用したCRUD操作を提供するインターフェース
+
+import com.example.nagoyameshi.entity.House;
+
+/**
+ * Houseエンティティを操作するためのリポジトリインターフェース。
+ * Spring Data JPAにより、自動でCRUD機能が提供されます。
+ */
+public interface HouseRepository extends JpaRepository<House, Integer> {
+
+    /**
+     * 店舗名が指定したキーワードに部分一致するHouseエンティティを検索します。
+     *
+     * @param keyword 検索キーワード
+     * @param pageable ページング情報（ページサイズ、ソート順など）
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByNameLike(String keyword, Pageable pageable);
+
+    /**
+     * 店舗名または住所が指定したキーワードに部分一致するHouseエンティティを、
+     * 作成日時の降順で検索します。
+     *
+     * @param nameKeyword 店舗名の検索キーワード
+     * @param addressKeyword 住所の検索キーワード
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByNameLikeOrAddressLikeOrderByCreatedAtDesc(String nameKeyword, String addressKeyword, Pageable pageable);
+
+    /**
+     * 店舗名または住所が指定したキーワードに部分一致するHouseエンティティを、
+     * 価格の昇順で検索します。
+     *
+     * @param nameKeyword 店舗名の検索キーワード
+     * @param addressKeyword 住所の検索キーワード
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByNameLikeOrAddressLikeOrderByPriceAsc(String nameKeyword, String addressKeyword, Pageable pageable);
+
+    /**
+     * 住所が指定したエリアに部分一致するHouseエンティティを、
+     * 作成日時の降順で検索します。
+     *
+     * @param area エリアの検索キーワード
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByAddressLikeOrderByCreatedAtDesc(String area, Pageable pageable);
+
+    /**
+     * 住所が指定したエリアに部分一致するHouseエンティティを、
+     * 価格の昇順で検索します。
+     *
+     * @param area エリアの検索キーワード
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByAddressLikeOrderByPriceAsc(String area, Pageable pageable);
+
+    /**
+     * 価格が指定した金額以下のHouseエンティティを、
+     * 作成日時の降順で検索します。
+     *
+     * @param price 価格の上限
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByPriceLessThanEqualOrderByCreatedAtDesc(Integer price, Pageable pageable);
+
+    /**
+     * 価格が指定した金額以下のHouseエンティティを、
+     * 価格の昇順で検索します。
+     *
+     * @param price 価格の上限
+     * @param pageable ページング情報
+     * @return ページングされた検索結果
+     */
+    public Page<House> findByPriceLessThanEqualOrderByPriceAsc(Integer price, Pageable pageable);
+
+    /**
+     * 指定されたカテゴリIDのHouseエンティティを取得します。
+     *
+     * @param categoryId カテゴリID
+     * @param pageable ページング情報
+     * @return ページングされた結果
+     */
+    public Page<House> findByCategory

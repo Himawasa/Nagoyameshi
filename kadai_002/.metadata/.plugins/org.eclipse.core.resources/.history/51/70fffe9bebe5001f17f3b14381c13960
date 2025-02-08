@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">    
+<head>
+    <div th:replace="~{fragment :: meta}"></div>   
+    <div th:replace="~{fragment :: styles}"></div>
+      
+    <title>名古屋めし一覧</title> <!-- ページタイトルを修正 -->
+</head>
+<body>
+    <div class="nagoyameshi-wrapper">
+        <!-- ヘッダー -->
+        <div th:replace="~{fragment :: header}"></div>
+        
+        <main>
+            <div class="container nagoyameshi-container pb-5">
+                <div class="row justify-content-center">
+                    <!-- パンくずリスト -->
+                    <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">                        
+                            <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">名古屋めし一覧</li>
+                        </ol>
+                    </nav>         
+
+                    <div class="col-xl-3 col-lg-4 col-md-12">               
+                        <!-- 検索フォーム -->
+                        <form method="get" th:action="@{/shops}" class="w-100 mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="料理名・カテゴリを入力">
+                                <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button> 
+                            </div>               
+                        </form>
+
+                        <!-- カテゴリから探す -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                カテゴリから探す
+                            </div>
+                            <div class="card-body">
+                                <form method="get" th:action="@{/shops}" class="w-100">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control form-select" name="category">  
+                                            <option value="" hidden>選択してください</option>   
+                                            <option value="和食" th:selected="${category == '和食'}">和食</option>
+                                            <option value="洋食" th:selected="${category == '洋食'}">洋食</option>
+                                            <option value="中華" th:selected="${category == '中華'}">中華</option>
+                                            <option value="スイーツ" th:selected="${category == 'スイーツ'}">スイーツ</option>
+                                            <option value="その他" th:selected="${category == 'その他'}">その他</option>
+                                        </select> 
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn">検索</button>
+                                    </div>                                           
+                                </form>
+                            </div>
+                        </div>                
+                    </div>
+
+                    <!-- 店舗一覧 -->
+                    <div class="col">                                                                          
+                        <div class="d-flex justify-content-between flex-wrap">                                
+                            <p th:if="${shopPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + shopPage.getTotalElements() + '件' + '（' + (shopPage.getNumber() + 1) + ' / ' + shopPage.getTotalPages() + ' ページ）'}"></p> 
+                            <p th:unless="${shopPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + shopPage.getTotalElements() + '件'}"></p> 
+                        </div>   
+
+                        <!-- 店舗カード -->
+                        <div class="mb-3" th:each="shop : ${shopPage}">
+                            <a th:href="@{/shops/__${shop.getId()}__}" class="link-dark nagoyameshi-card-link">
+                                <div class="card h-100">   
+                                    <div class="row g-0">
+                                        <div class="col-md-4">                                                                                
+                                            <img th:if="${shop.getImageName()}" th:src="@{/storage/__${shop.getImageName()}__}" class="card-img-top nagoyameshi-horizontal-card-image" alt="店舗画像">                                                     
+                                            <img th:unless="${shop.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top nagoyameshi-horizontal-card-image" alt="NO IMAGE">                                                    
+                                        </div> 
+                                        <div class="col-md-8">                                                                                                                        
+                                            <div class="card-body">                                    
+                                                <h3 class="card-title mb-3" th:text="${shop.getName()}"></h3>                                            
+                                                <p class="card-text mb-2">
+                                                    <span th:text="${shop.getDescription()}"></span>
+                                                </p>                                                    
+                                                <p class="card-text mb-2">
+                                                    <small class="text-muted" th:text="${'〒' + shop.getPostalCode()}"></small>
+                                                    <small class="text-muted" th:text="${shop.getAddress()}"></small>                                                      
+                                                </p>   
+                                                <p class="card-text">
+                                                    <span th:text="${#numbers.formatInteger(shop.getPrice(), 1, 'COMMA') + '円 / 人'}"></span>
+                                                </p>                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </a>            
+                        </div>                                                                                        
+                    </div>
+                </div>
+            </div>  
+        </main>
+        
+        <!-- フッター -->
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>    
+    
+    <div th:replace="~{fragment :: scripts}"></div>  
+</body>
+</html>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">    
+<head>
+    <div th:replace="~{fragment :: meta}"></div>   
+    <div th:replace="~{fragment :: styles}"></div>
+      
+    <title>名古屋めし一覧</title> <!-- ページタイトルを修正 -->
+</head>
+<body>
+    <div class="nagoyameshi-wrapper">
+        <!-- ヘッダー -->
+        <div th:replace="~{fragment :: header}"></div>
+        
+        <main>
+            <div class="container nagoyameshi-container pb-5">
+                <div class="row justify-content-center">
+                    <!-- パンくずリスト -->
+                    <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">                        
+                            <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">名古屋めし一覧</li>
+                        </ol>
+                    </nav>         
+
+                    <div class="col-xl-3 col-lg-4 col-md-12">               
+                        <!-- 検索フォーム -->
+                        <form method="get" th:action="@{/shops}" class="w-100 mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="料理名・カテゴリを入力">
+                                <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button> 
+                            </div>               
+                        </form>
+
+                        <!-- カテゴリから探す -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                カテゴリから探す
+                            </div>
+                            <div class="card-body">
+                                <form method="get" th:action="@{/shops}" class="w-100">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control form-select" name="category">  
+                                            <option value="" hidden>選択してください</option>   
+                                            <option value="和食" th:selected="${category == '和食'}">和食</option>
+                                            <option value="洋食" th:selected="${category == '洋食'}">洋食</option>
+                                            <option value="中華" th:selected="${category == '中華'}">中華</option>
+                                            <option value="スイーツ" th:selected="${category == 'スイーツ'}">スイーツ</option>
+                                            <option value="その他" th:selected="${category == 'その他'}">その他</option>
+                                        </select> 
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn text-white shadow-sm w-100 nagoyameshi-btn">検索</button>
+                                    </div>                                           
+                                </form>
+                            </div>
+                        </div>                
+                    </div>
+
+                    <!-- 店舗一覧 -->
+                    <div class="col">                                                                          
+                        <div class="d-flex justify-content-between flex-wrap">                                
+                            <p th:if="${shopPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + shopPage.getTotalElements() + '件' + '（' + (shopPage.getNumber() + 1) + ' / ' + shopPage.getTotalPages() + ' ページ）'}"></p> 
+                            <p th:unless="${shopPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + shopPage.getTotalElements() + '件'}"></p> 
+                        </div>   
+
+                        <!-- 店舗カード -->
+                        <div class="mb-3" th:each="shop : ${shopPage}">
+                            <a th:href="@{/shops/__${shop.getId()}__}" class="link-dark nagoyameshi-card-link">
+                                <div class="card h-100">   
+                                    <div class="row g-0">
+                                        <div class="col-md-4">                                                                                
+                                            <img th:if="${shop.getImageName()}" th:src="@{/storage/__${shop.getImageName()}__}" class="card-img-top nagoyameshi-horizontal-card-image" alt="店舗画像">                                                     
+                                            <img th:unless="${shop.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top nagoyameshi-horizontal-card-image" alt="NO IMAGE">                                                    
+                                        </div> 
+                                        <div class="col-md-8">                                                                                                                        
+                                            <div class="card-body">                                    
+                                                <h3 class="card-title mb-3" th:text="${shop.getName()}"></h3>                                            
+                                                <p class="card-text mb-2">
+                                                    <span th:text="${shop.getDescription()}"></span>
+                                                </p>                                                    
+                                                <p class="card-text mb-2">
+                                                    <small class="text-muted" th:text="${'〒' + shop.getPostalCode()}"></small>
+                                                    <small class="text-muted" th:text="${shop.getAddress()}"></small>                                                      
+                                                </p>   
+                                                <p class="card-text">
+                                                    <span th:text="${#numbers.formatInteger(shop.getPrice(), 1, 'COMMA') + '円 / 人'}"></span>
+                                                </p>                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </a>            
+                        </div>                                                                                        
+                    </div>
+                </div>
+            </div>  
+        </main>
+        
+        <!-- フッター -->
+        <div th:replace="~{fragment :: footer}"></div>
+    </div>    
+    
+    <div th:replace="~{fragment :: scripts}"></div>  
+</body>
+</html>

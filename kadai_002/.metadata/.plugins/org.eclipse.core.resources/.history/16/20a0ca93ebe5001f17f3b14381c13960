@@ -1,0 +1,29 @@
+package com.example.nagoyameshi.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.nagoyameshi.entity.Category;
+import com.example.nagoyameshi.repository.CategoryRepository;
+
+/**
+ * カテゴリに関するビジネスロジックを提供するサービス
+ */
+@Service
+public class CategoryService {
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    /**
+     * カテゴリIDで検索
+     * @param id カテゴリのID (Long型)
+     * @return 検索結果のカテゴリ
+     */
+    public Category findById(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        return category.orElseThrow(() -> new RuntimeException("カテゴリが見つかりません: ID = " + id));
+    }
+}
