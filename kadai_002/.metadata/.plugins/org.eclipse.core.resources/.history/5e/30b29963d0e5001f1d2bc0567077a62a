@@ -1,0 +1,54 @@
+package com.example.nagoyameshi.service;
+
+import com.example.nagoyameshi.entity.Shop;
+import com.example.nagoyameshi.repository.ShopRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+/**
+ * ShopServiceクラスは、ショップに関するビジネスロジックを提供します。
+ */
+@Service
+public class ShopService {
+
+    @Autowired
+    private ShopRepository shopRepository;
+
+    /**
+     * すべてのショップを取得します。
+     * @return ショップのリスト
+     */
+    public Iterable<Shop> findAll() {
+        return shopRepository.findAll();
+    }
+
+    /**
+     * IDによってショップを検索します。
+     * @param id ショップID (Integer型)
+     * @return ショップのオプショナルオブジェクト
+     */
+    public Optional<Shop> findById(Integer id) {
+        return shopRepository.findById(id);
+    }
+
+    /**
+     * ショップを保存します。
+     * @param shop 保存するショップオブジェクト
+     */
+    @Transactional
+    public void save(Shop shop) {
+        shopRepository.save(shop);
+    }
+
+    /**
+     * IDによってショップを削除します。
+     * @param id ショップID (Integer型)
+     */
+    @Transactional
+    public void deleteById(Integer id) {
+        shopRepository.deleteById(id);
+    }
+}

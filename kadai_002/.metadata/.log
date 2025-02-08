@@ -4204,3 +4204,215 @@ java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "compi
 	at org.eclipse.jface.text.reconciler.MonoReconciler.initialProcess(MonoReconciler.java:100)
 	at org.eclipse.jdt.internal.ui.text.JavaReconciler.initialProcess(JavaReconciler.java:421)
 	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:177)
+!SESSION 2025-02-08 12:19:56.124 -----------------------------------------------
+eclipse.buildId=4.33.0.20240905-0613
+java.version=21.0.4
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ja_JP
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.ui 2 0 2025-02-08 12:20:39.444
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-02-08 12:20:39.444
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.ui 2 0 2025-02-08 12:20:40.034
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-02-08 12:20:40.034
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.jdt.core 4 0 2025-02-08 12:20:56.523
+!MESSAGE Lombok annotation handler class lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor failed
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "compilationUnit" is null
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2841)
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2830)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructorJavadoc(HandleConstructor.java:609)
+	at lombok.eclipse.handlers.HandleConstructor.generate(HandleConstructor.java:290)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructor(HandleConstructor.java:246)
+	at lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor.handle(HandleConstructor.java:165)
+	at lombok.eclipse.HandlerLibrary$AnnotationHandlerContainer.handle(HandlerLibrary.java:106)
+	at lombok.eclipse.HandlerLibrary.handleAnnotation(HandlerLibrary.java:237)
+	at lombok.eclipse.TransformEclipseAST$AnnotationVisitor.visitAnnotationOnType(TransformEclipseAST.java:269)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:107)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:74)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:69)
+	at lombok.eclipse.EclipseAST.traverse(EclipseAST.java:224)
+	at lombok.eclipse.TransformEclipseAST.go(TransformEclipseAST.java:226)
+	at lombok.eclipse.TransformEclipseAST.transform(TransformEclipseAST.java:187)
+	at lombok.eclipse.TransformEclipseAST.transform_swapped(TransformEclipseAST.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at lombok.launch.PatchFixesHider$Util.invokeMethod(PatchFixesHider.java:146)
+	at lombok.launch.PatchFixesHider$Transform.transform_swapped(PatchFixesHider.java:272)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.endParse(Parser.java:11447)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12639)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12869)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12826)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.dietParse(Parser.java:11218)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.convert(SourceTypeConverter.java:152)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.buildCompilationUnit(SourceTypeConverter.java:99)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.accept(CompilationUnitProblemFinder.java:123)
+	at org.eclipse.jdt.internal.compiler.lookup.LookupEnvironment.askForType(LookupEnvironment.java:388)
+	at org.eclipse.jdt.internal.compiler.lookup.PackageBinding.getTypeOrPackage(PackageBinding.java:276)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findImport(CompilationUnitScope.java:636)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findSingleImport(CompilationUnitScope.java:708)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInImports(CompilationUnitScope.java:535)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInTypes(CompilationUnitScope.java:610)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1081)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1130)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:280)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:346)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:186)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:92)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:739)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:804)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1303)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.initialReconcile(JavaReconcilingStrategy.java:189)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.initialReconcile(CompositeReconcilingStrategy.java:125)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.initialReconcile(JavaCompositeReconcilingStrategy.java:139)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.initialProcess(MonoReconciler.java:100)
+	at org.eclipse.jdt.internal.ui.text.JavaReconciler.initialProcess(JavaReconciler.java:421)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:177)
+
+!ENTRY org.eclipse.jdt.core 4 0 2025-02-08 12:27:06.396
+!MESSAGE Lombok annotation handler class lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor failed
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "compilationUnit" is null
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2841)
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2830)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructorJavadoc(HandleConstructor.java:609)
+	at lombok.eclipse.handlers.HandleConstructor.generate(HandleConstructor.java:290)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructor(HandleConstructor.java:246)
+	at lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor.handle(HandleConstructor.java:165)
+	at lombok.eclipse.HandlerLibrary$AnnotationHandlerContainer.handle(HandlerLibrary.java:106)
+	at lombok.eclipse.HandlerLibrary.handleAnnotation(HandlerLibrary.java:237)
+	at lombok.eclipse.TransformEclipseAST$AnnotationVisitor.visitAnnotationOnType(TransformEclipseAST.java:269)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:107)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:74)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:69)
+	at lombok.eclipse.EclipseAST.traverse(EclipseAST.java:224)
+	at lombok.eclipse.TransformEclipseAST.go(TransformEclipseAST.java:226)
+	at lombok.eclipse.TransformEclipseAST.transform(TransformEclipseAST.java:187)
+	at lombok.eclipse.TransformEclipseAST.transform_swapped(TransformEclipseAST.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at lombok.launch.PatchFixesHider$Util.invokeMethod(PatchFixesHider.java:146)
+	at lombok.launch.PatchFixesHider$Transform.transform_swapped(PatchFixesHider.java:272)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.endParse(Parser.java:11447)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12639)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12869)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12826)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.dietParse(Parser.java:11218)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.convert(SourceTypeConverter.java:152)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.buildCompilationUnit(SourceTypeConverter.java:99)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.accept(CompilationUnitProblemFinder.java:123)
+	at org.eclipse.jdt.internal.compiler.lookup.LookupEnvironment.askForType(LookupEnvironment.java:388)
+	at org.eclipse.jdt.internal.compiler.lookup.PackageBinding.getTypeOrPackage(PackageBinding.java:276)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findImport(CompilationUnitScope.java:636)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findSingleImport(CompilationUnitScope.java:708)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInImports(CompilationUnitScope.java:535)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInTypes(CompilationUnitScope.java:610)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1081)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1130)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:280)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:346)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:186)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:92)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:739)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:804)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1303)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:78)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.core 4 0 2025-02-08 12:28:52.994
+!MESSAGE Lombok annotation handler class lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor failed
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "compilationUnit" is null
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2841)
+	at lombok.eclipse.handlers.EclipseHandlerUtil.setDocComment(EclipseHandlerUtil.java:2830)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructorJavadoc(HandleConstructor.java:609)
+	at lombok.eclipse.handlers.HandleConstructor.generate(HandleConstructor.java:290)
+	at lombok.eclipse.handlers.HandleConstructor.generateConstructor(HandleConstructor.java:246)
+	at lombok.eclipse.handlers.HandleConstructor$HandleAllArgsConstructor.handle(HandleConstructor.java:165)
+	at lombok.eclipse.HandlerLibrary$AnnotationHandlerContainer.handle(HandlerLibrary.java:106)
+	at lombok.eclipse.HandlerLibrary.handleAnnotation(HandlerLibrary.java:237)
+	at lombok.eclipse.TransformEclipseAST$AnnotationVisitor.visitAnnotationOnType(TransformEclipseAST.java:269)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:107)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:74)
+	at lombok.eclipse.EclipseAST.traverseChildren(EclipseAST.java:231)
+	at lombok.eclipse.EclipseNode.traverse(EclipseNode.java:69)
+	at lombok.eclipse.EclipseAST.traverse(EclipseAST.java:224)
+	at lombok.eclipse.TransformEclipseAST.go(TransformEclipseAST.java:226)
+	at lombok.eclipse.TransformEclipseAST.transform(TransformEclipseAST.java:187)
+	at lombok.eclipse.TransformEclipseAST.transform_swapped(TransformEclipseAST.java:104)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at lombok.launch.PatchFixesHider$Util.invokeMethod(PatchFixesHider.java:146)
+	at lombok.launch.PatchFixesHider$Transform.transform_swapped(PatchFixesHider.java:272)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.endParse(Parser.java:11447)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12639)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12869)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:12826)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.dietParse(Parser.java:11218)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.convert(SourceTypeConverter.java:152)
+	at org.eclipse.jdt.internal.compiler.parser.SourceTypeConverter.buildCompilationUnit(SourceTypeConverter.java:99)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.accept(CompilationUnitProblemFinder.java:123)
+	at org.eclipse.jdt.internal.compiler.lookup.LookupEnvironment.askForType(LookupEnvironment.java:388)
+	at org.eclipse.jdt.internal.compiler.lookup.PackageBinding.getTypeOrPackage(PackageBinding.java:276)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findImport(CompilationUnitScope.java:636)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.findSingleImport(CompilationUnitScope.java:708)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInImports(CompilationUnitScope.java:535)
+	at org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope.faultInTypes(CompilationUnitScope.java:610)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1081)
+	at org.eclipse.jdt.internal.compiler.Compiler.resolve(Compiler.java:1130)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:280)
+	at org.eclipse.jdt.internal.core.CompilationUnitProblemFinder.process(CompilationUnitProblemFinder.java:346)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:186)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:92)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:739)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:804)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1303)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:78)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+!SESSION 2025-02-08 15:00:09.983 -----------------------------------------------
+eclipse.buildId=4.33.0.20240905-0613
+java.version=21.0.4
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ja_JP
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.ui 2 0 2025-02-08 15:00:18.538
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-02-08 15:00:18.538
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.ui 2 0 2025-02-08 15:00:19.364
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-02-08 15:00:19.364
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'

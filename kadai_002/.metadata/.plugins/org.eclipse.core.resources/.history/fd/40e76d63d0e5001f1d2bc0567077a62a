@@ -1,0 +1,29 @@
+package com.example.nagoyameshi.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+public class Shop {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // 型をLongに変更
+
+    private String name;
+
+    @Column(name = "category_id")
+    private Long categoryId;
+
+    private String description;
+
+    private Integer price;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    private String address;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+}

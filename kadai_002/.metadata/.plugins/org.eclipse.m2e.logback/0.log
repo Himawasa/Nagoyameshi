@@ -806,3 +806,68 @@
 2025-02-07 22:49:22,624 [Worker-28: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2025-02-07 22:49:22,649 [Worker-28: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-02-07 22:49:22,662 [Worker-28: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-07 22:50:03,756 [Worker-25: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-07 22:50:03,766 [Worker-25: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-02-07 22:50:03,774 [Worker-25: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:20:53,202 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2025-02-08 12:23:15,497 [Worker-1: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:23:15,500 [Worker-1: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:23:15,548 [Worker-1: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:24:12,661 [Worker-6: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:24:12,672 [Worker-6: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:24:12,712 [Worker-6: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:27:05,746 [Worker-11: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:27:05,758 [Worker-11: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:27:05,796 [Worker-11: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:28:52,509 [Worker-7: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:28:52,519 [Worker-7: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-02-08 12:28:52,526 [Worker-7: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:32:23,917 [Worker-0: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:32:23,925 [Worker-0: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:32:23,954 [Worker-0: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:39:16,756 [Worker-1: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:39:16,766 [Worker-1: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:39:16,802 [Worker-1: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:44:45,763 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:44:45,771 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:44:45,804 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:47:41,402 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:47:41,414 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:47:41,455 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:49:58,203 [Worker-17: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:49:58,212 [Worker-17: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:49:58,238 [Worker-17: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:54:26,429 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:54:26,436 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:54:26,461 [Worker-13: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:56:18,570 [Worker-19: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:56:18,578 [Worker-19: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:56:18,600 [Worker-19: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 12:58:21,795 [Worker-25: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 12:58:21,805 [Worker-25: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 12:58:21,831 [Worker-25: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 13:05:26,223 [Worker-23: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 13:05:26,234 [Worker-23: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 13:05:26,264 [Worker-23: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 13:08:28,176 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 13:08:28,184 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 13:08:28,208 [Worker-18: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 13:10:00,693 [Worker-22: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 13:10:00,701 [Worker-22: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 13:10:00,722 [Worker-22: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 14:38:35,410 [Worker-28: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 14:38:35,416 [Worker-28: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 14:38:35,433 [Worker-28: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 14:40:51,953 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 14:40:51,961 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 14:40:51,982 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 14:48:16,794 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 14:48:16,804 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 14:48:16,832 [Worker-34: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 14:51:31,431 [Worker-35: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 14:51:31,440 [Worker-35: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 14:51:31,460 [Worker-35: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 14:53:09,548 [Worker-39: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-02-08 14:53:09,556 [Worker-39: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 31 resources from src\main\resources to target\classes
+2025-02-08 14:53:09,583 [Worker-39: nagoyameshi - NagoyameshiApplication の起動] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\TMP\kadai_002\nagoyameshi\src\test\resources
+2025-02-08 15:00:37,969 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

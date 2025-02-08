@@ -1,7 +1,5 @@
 package com.example.nagoyameshi.controller;
 
-import java.util.Optional;
-
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,78 +11,64 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nagoyameshi.entity.Shop;
 import com.example.nagoyameshi.form.ShopEditForm;
 import com.example.nagoyameshi.form.ShopRegisterForm;
-import com.example.nagoyameshi.repository.ShopRepository;
+import com.example.nagoyameshi.service.ShopService;
 
+/**
+ * 管理者向けの店舗コントローラクラス。
+ * 新規登録、編集、削除などの機能を提供します。
+ */
 @Controller
 @RequestMapping("/admin/shops")
 public class AdminShopController {
 
     @Autowired
-    private ShopRepository shopRepository;
+    private ShopService shopService;
 
-    // 店舗一覧表示
+    /**
+     * 店舗一覧を表示するメソッド。
+     */
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("shops", shopRepository.findAll());
+        model.addAttribute("shops", shopService.findAll());
         return "admin/shops/index";
     }
 
-    // 新規登録フォーム表示
+    /**
+     * 新規店舗登録画面を表示するメソッド。
+     */
     @GetMapping("/new")
     public String newShop(Model model) {
         model.addAttribute("shopRegisterForm", new ShopRegisterForm());
         return "admin/shops/new";
     }
 
-    // 新規店舗登録処理
+    /**
+     * 新規店舗を登録するメソッド。
+     */
     @PostMapping
-    public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) {
+    public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/shops/new";
         }
-        Shop shop = new Shop();
-        shop.setName(shopRegisterForm.getName());
-        shop.setCategoryId(shopRegisterForm.getCategoryId());
-        shop.setDescription(shopRegisterForm.getDescription());
-        shop.setImage(shopRegisterForm.getImage());
-        shop.setBusinessHours(shopRegisterForm.getBusinessHours());
-        shop.setPrice(shopRegisterForm.getPrice());
-        shop.setPostalCode(shopRegisterForm.getPostalCode());
-        shop.setAddress(shopRegisterForm.getAddress());
-        shop.setPhoneNumber(shopRegisterForm.getPhoneNumber());
-        shop.setRegularHoliday(shopRegisterForm.getRegularHoliday());
-        shopRepository.save(shop);
-        redirectAttributes.addFlashAttribute("success", "店舗を登録しました。");
+        shopService.create(shopRegisterForm);
         return "redirect:/admin/shops";
     }
 
-    // 店舗詳細表示
-    @GetMapping("/{id}")
-    public String showShop(@PathVariable Long id, Model model) {
-        Optional<Shop> shopOptional = shopRepository.findById(id);
-        if (shopOptional.isEmpty()) {
-            return "redirect:/admin/shops";
-        }
-        model.addAttribute("shop", shopOptional.get());
-        return "admin/shops/show";
-    }
-
-    // 店舗編集フォーム表示
+    /**
+     * 店舗編集画面を表示するメソッド。
+     * 
+     * @param id 編集対象の店舗ID
+     */
     @GetMapping("/{id}/edit")
-    public String editShop(@PathVariable Long id, Model model) {
-        Optional<Shop> shopOptional = shopRepository.findById(id);
-        if (shopOptional.isEmpty()) {
-            return "redirect:/admin/shops";
-        }
-        Shop shop = shopOptional.get();
+    public String editShop(@PathVariable Integer id, Model model) {
+        Shop shop = shopService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid shop ID: " + id));
         ShopEditForm shopEditForm = new ShopEditForm();
-        shopEditForm.setId(shop.getId());
+        shopEditForm.setId(shop.getId()); // Integer型に統一され、エラーが解消
         shopEditForm.setName(shop.getName());
         shopEditForm.setCategoryId(shop.getCategoryId());
         shopEditForm.setDescription(shop.getDescription());
@@ -99,38 +83,24 @@ public class AdminShopController {
         return "admin/shops/edit";
     }
 
-    // 店舗更新処理
+    /**
+     * 店舗情報を更新するメソッド。
+     */
     @PostMapping("/{id}")
-    public String updateShop(@PathVariable Long id, @Valid @ModelAttribute ShopEditForm shopEditForm,
-                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateShop(@PathVariable Integer id, @Valid @ModelAttribute ShopEditForm shopEditForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/shops/edit";
         }
-        Optional<Shop> shopOptional = shopRepository.findById(id);
-        if (shopOptional.isEmpty()) {
-            return "redirect:/admin/shops";
-        }
-        Shop shop = shopOptional.get();
-        shop.setName(shopEditForm.getName());
-        shop.setCategoryId(shopEditForm.getCategoryId());
-        shop.setDescription(shopEditForm.getDescription());
-        shop.setImage(shopEditForm.getImage());
-        shop.setBusinessHours(shopEditForm.getBusinessHours());
-        shop.setPrice(shopEditForm.getPrice());
-        shop.setPostalCode(shopEditForm.getPostalCode());
-        shop.setAddress(shopEditForm.getAddress());
-        shop.setPhoneNumber(shopEditForm.getPhoneNumber());
-        shop.setRegularHoliday(shopEditForm.getRegularHoliday());
-        shopRepository.save(shop);
-        redirectAttributes.addFlashAttribute("success", "店舗情報を更新しました。");
+        shopService.update(shopEditForm);
         return "redirect:/admin/shops";
     }
 
-    // 店舗削除処理
+    /**
+     * 店舗を削除するメソッド。
+     */
     @PostMapping("/{id}/delete")
-    public String deleteShop(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        shopRepository.deleteById(id);
-        redirectAttributes.addFlashAttribute("success", "店舗を削除しました。");
+    public String deleteShop(@PathVariable Integer id) {
+        shopService.deleteById(id);
         return "redirect:/admin/shops";
     }
 }
