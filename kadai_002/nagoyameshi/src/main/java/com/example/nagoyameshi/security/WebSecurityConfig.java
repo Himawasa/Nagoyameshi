@@ -1,78 +1,82 @@
 package com.example.nagoyameshi.security;
 
-//Spring Security設定に必要なパッケージをインポート
-import org.springframework.context.annotation.Bean; // Beanを定義するためのアノテーション
-import org.springframework.context.annotation.Configuration; // コンフィギュレーションクラスのアノテーション
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity; // メソッドレベルのセキュリティ設定を有効化
-import org.springframework.security.config.annotation.web.builders.HttpSecurity; // HTTPセキュリティ設定を行うためのクラス
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity; // Webセキュリティ設定を有効化
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // パスワードを暗号化するためのエンコーダー
-import org.springframework.security.crypto.password.PasswordEncoder; // パスワードエンコーダーのインターフェース
-import org.springframework.security.web.SecurityFilterChain; // セキュリティフィルターチェーンの構築クラス
+// Spring Securityの必要なクラスをインポート
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
-* Spring Securityの設定クラス
-*/
+ * NAGOYAMESHI アプリのSpring Security設定クラス
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
- /**
-  * HTTPセキュリティ設定を構築します
-  * 
-  * @param http HTTPセキュリティ設定のオブジェクト
-  * @return SecurityFilterChain セキュリティフィルターチェーン
-  * @throws Exception 設定に失敗した場合の例外
-  */
- @Bean
- public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-     http
-         .authorizeHttpRequests((requests) -> requests
-             // すべてのユーザーにアクセスを許可するURL
-             .requestMatchers(
-                 "/css/**", 
-                 "/images/**", 
-                 "/js/**", 
-                 "/storage/**", 
-                 "/", 
-                 "/signup/**", 
-                 "/houses", 
-                 "/houses/{id}", 
-                 "/houses/{id}/reviews",  // 追加: レビュー一覧ページへのアクセスを許可
-                 "/stripe/webhook"
-             ).permitAll()
-             // 管理者にのみアクセスを許可するURL
-             .requestMatchers("/admin/**").hasRole("ADMIN")
-             // それ以外のリクエストには認証が必要
-             .anyRequest().authenticated()
-         )
-         // ログイン設定
-         .formLogin((form) -> form
-             .loginPage("/login")              // ログインページのURL
-             .loginProcessingUrl("/login")     // ログイン処理のURL
-             .defaultSuccessUrl("/?loggedIn")  // ログイン成功時のリダイレクト先
-             .failureUrl("/login?error")       // ログイン失敗時のリダイレクト先
-             .permitAll()
-         )
-         // ログアウト設定
-         .logout((logout) -> logout
-             .logoutSuccessUrl("/?loggedOut")  // ログアウト成功時のリダイレクト先
-             .permitAll()
-         )
-         // 特定のリクエストに対してCSRF保護を無効化
-         .csrf().ignoringRequestMatchers("/stripe/webhook");
-     
-     return http.build();
- }
+    /**
+     * HTTPセキュリティの設定を行う
+     *
+     * @param http HTTPセキュリティ設定のオブジェクト
+     * @return SecurityFilterChain セキュリティフィルターチェーン
+     * @throws Exception 設定エラー
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests((requests) -> requests
+                // すべてのユーザーに許可するページ
+                .requestMatchers(
+                    "/css/**",
+                    "/images/**",
+                    "/js/**",
+                    "/storage/**",
+                    "/",
+                    "/signup/**",
+                    "/shops",         // 店舗一覧
+                    "/shops/{id}",    // 店舗詳細
+                    "/login",
+                    "/admin/**",      // 管理者ページ（現在は誰でもアクセス可能）
+                    "/stripe/webhook" // ストライプのWebHook
+                ).permitAll()
+                // 有料会員のみがアクセスできる機能
+                .requestMatchers(
+                    "/shops/{id}/reviews", // 店舗のレビュー投稿
+                    "/shops/{id}/reserve"  // 予約機能
+                ).hasRole("PREMIUM")
+                // その他は全て認証が必要
+                .anyRequest().authenticated()
+            )
+            // ログイン設定
+            .formLogin((form) -> form
+                .loginPage("/login")               // ログインページ
+                .loginProcessingUrl("/login")      // ログイン処理
+                .defaultSuccessUrl("/?loggedIn")   // ログイン成功時のリダイレクト先
+                .failureUrl("/login?error")        // ログイン失敗時のリダイレクト先
+                .permitAll()
+            )
+            // ログアウト設定
+            .logout((logout) -> logout
+                .logoutSuccessUrl("/?loggedOut")  // ログアウト成功時
+                .permitAll()
+            )
+            // CSRF保護（ストライプのWebhookは無効化）
+            .csrf().ignoringRequestMatchers("/stripe/webhook");
 
- /**
-  * パスワードをハッシュ化するためのエンコーダーを定義
-  * 
-  * @return PasswordEncoder パスワードエンコーダー
-  */
- @Bean
- public PasswordEncoder passwordEncoder() {
-     return new BCryptPasswordEncoder();
- }
+        return http.build();
+    }
+
+    /**
+     * パスワードのエンコーダーを定義
+     *
+     * @return PasswordEncoder パスワードエンコーダー
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

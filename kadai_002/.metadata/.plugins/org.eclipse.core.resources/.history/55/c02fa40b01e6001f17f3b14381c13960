@@ -46,12 +46,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="shop : ${shopPage.content}">
-                            <td th:text="${shop.id}"></td>
-                            <td th:text="${shop.name}"></td>
-                            <td th:text="${shop.categoryName}"></td>
-                            <td th:text="${shop.address}"></td>
-                            <td th:text="${shop.phoneNumber}"></td>                                        
+                        <tr th:each="shop : ${shopPage}">
+                            <td th:text="${shop.getId()}"></td>
+                            <td th:text="${shop.getName()}"></td>
+                            <td th:text="${shop.getCategoryName()}"></td>
+                            <td th:text="${shop.getAddress()}"></td>
+                            <td th:text="${shop.getPhoneNumber()}"></td>                                        
                             <td>
                                 <a th:href="@{/admin/shops/{id}/edit(id=${shop.id})}" class="btn btn-sm btn-warning">編集</a>
                                 <form th:action="@{/admin/shops/{id}/delete(id=${shop.id})}" method="post" class="d-inline-block">
@@ -63,25 +63,31 @@
                 </table>
 
                 <!-- ページネーション -->
-                <div th:if="${shopPage != null and shopPage.totalPages > 1}" class="d-flex justify-content-center">
+                <div th:if="${shopPage.getTotalPages() > 1}" class="d-flex justify-content-center">
                     <nav aria-label="店舗一覧ページ">
                         <ul class="pagination">
                             <li class="page-item">
-                                <span th:if="${shopPage.first}" class="page-link disabled">前</span>
-                                <a th:unless="${shopPage.first}" th:href="@{/admin/shops(page=${shopPage.number - 1}, keyword=${keyword})}" class="page-link">前</a>
+                                <span th:if="${shopPage.isFirst()}" class="page-link disabled">前</span>
+                                <a th:unless="${shopPage.isFirst()}" th:href="@{/admin/shops(page = ${shopPage.getNumber() - 1}, keyword = ${keyword})}" class="page-link">前</a>
                             </li>
-                            <li th:each="i : ${#numbers.sequence(0, shopPage.totalPages - 1)}" class="page-item">
-                                <a th:href="@{/admin/shops(page=${i}, keyword=${keyword})}" class="page-link" th:text="${i + 1}"></a>
+                            <li th:each="i : ${#numbers.sequence(0, shopPage.getTotalPages() - 1)}" class="page-item">
+                                <span th:if="${i == shopPage.getNumber()}" class="page-link active" th:text="${i + 1}"></span>
+                                <a th:unless="${i == shopPage.getNumber()}" th:href="@{/admin/shops(page = ${i}, keyword = ${keyword})}" class="page-link" th:text="${i + 1}"></a>
                             </li>
-                            <li class="page-item">
-                                <a th:unless="${shopPage.last}" th:href="@{/admin/shops(page=${shopPage.number + 1}, keyword=${keyword})}" class="page-link">次</a>
+                            <li class="page-item">                        
+                                <span th:if="${shopPage.isLast()}" class="page-link disabled">次</span>
+                                <a th:unless="${shopPage.isLast()}" th:href="@{/admin/shops(page = ${shopPage.getNumber() + 1}, keyword = ${keyword})}" class="page-link">次</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> 
                 </div>
             </div>
         </main>
+
+        <!-- フッター -->
         <div th:replace="~{fragment :: footer}"></div>
     </div>
+
+    <div th:replace="~{fragment :: scripts}"></div>
 </body>
 </html>
