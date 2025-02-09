@@ -41,7 +41,10 @@ public class WebSecurityConfig {
                     "/shops/{id}",    // 店舗詳細
                     "/login",
                     "/admin/**",      // 管理者ページ（現在は誰でもアクセス可能）
-                    "/stripe/webhook" // ストライプのWebHook
+                    "/stripe/webhook" ,// ストライプのWebHook
+                    "/admin/shops/new",   // 新規登録ページへのアクセスを許可
+                    "/admin/shops"        // 一覧ページも許可
+                    
                 ).permitAll()
                 // 有料会員のみがアクセスできる機能
                 .requestMatchers(

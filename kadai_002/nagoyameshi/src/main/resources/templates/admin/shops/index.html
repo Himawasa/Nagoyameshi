@@ -41,15 +41,16 @@
                             <th>店舗名</th>
                             <th>住所</th>
                             <th>電話番号</th>
-<!--                            <th>電話番号</th>-->
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="shop : ${shopPage.content}">
-                            <td th:text="${shop.id}"></td>
+                            <!-- IDをクリック可能にして詳細ページに遷移できるようにする -->
+                            <td>
+                                <a th:href="@{/admin/shops/{id}(id=${shop.id})}" th:text="${shop.id}" class="text-primary"></a>
+                            </td>
                             <td th:text="${shop.name}"></td>
-<!--                            <td th:text="${shop.categoryName}"></td>-->
                             <td th:text="${shop.address}"></td>
                             <td th:text="${shop.phoneNumber}"></td>                                        
                             <td>

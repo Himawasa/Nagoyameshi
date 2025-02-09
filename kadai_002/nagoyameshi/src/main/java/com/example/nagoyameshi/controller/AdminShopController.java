@@ -49,10 +49,10 @@ public class AdminShopController {
     /**
      * 新規店舗登録画面を表示するメソッド。
      */
-    @GetMapping("/new")
+    @GetMapping("/register")
     public String newShop(Model model) {
         model.addAttribute("shopRegisterForm", new ShopRegisterForm());
-        return "admin/shops/new";
+        return "admin/shops/register";
     }
 
     /**
@@ -61,10 +61,22 @@ public class AdminShopController {
     @PostMapping
     public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin/shops/new";
+            return "admin/shops/register";
         }
         shopService.create(shopRegisterForm);
         return "redirect:/admin/shops";
+    }
+
+    /**
+     * 店舗詳細ページを表示するメソッド
+     */
+    @GetMapping("/{id}")
+    public String showShop(@PathVariable Integer id, Model model) {
+        Shop shop = shopService.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id));
+
+        model.addAttribute("shop", shop);
+        return "admin/shops/show";  // `show.html` に遷移
     }
 
     /**
@@ -105,8 +117,6 @@ public class AdminShopController {
         if (bindingResult.hasErrors()) {
             Shop shop = shopService.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id));
-
-            System.out.println("Validation error in updating shop ID: " + id);
 
             model.addAttribute("shopEditForm", shopEditForm);
             model.addAttribute("shop", shop);
