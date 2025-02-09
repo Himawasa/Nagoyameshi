@@ -1,0 +1,56 @@
+package com.example.nagoyameshi.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+/**
+ * NAGOYAMESHI アプリのSpring Security設定クラス
+ */
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class WebSecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests((requests) -> requests
+                // すべてのユーザーに許可するページ
+                .requestMatchers(
+                    "/css/**", "/images/**", "/js/**", "/storage/**",
+                    "/", "/signup/**", "/shops", "/shops/{id}", "/login"
+                ).permitAll()
+                // 【一時的に `/admin/**` へのアクセスをフル開放】
+                .requestMatchers("/admin/**").permitAll()
+                // 有料会員専用ページ
+                .requestMatchers("/shops/{id}/reviews", "/shops/{id}/reserve").hasRole("PREMIUM")
+                // その他のページは認証必須
+                .anyRequest().authenticated()
+            )
+            .formLogin((form) -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/?loggedIn")
+                .failureUrl("/login?error")
+                .permitAll()
+            )
+            .logout((logout) -> logout
+                .logoutSuccessUrl("/?loggedOut")
+                .permitAll()
+            )
+            .csrf().disable(); // CSRFを一時的に無効化（動作確認後に有効化）
+
+        return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}

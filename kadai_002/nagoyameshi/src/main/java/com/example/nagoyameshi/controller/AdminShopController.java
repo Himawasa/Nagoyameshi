@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.nagoyameshi.entity.Shop;
 import com.example.nagoyameshi.form.ShopEditForm;
@@ -35,16 +37,12 @@ public class AdminShopController {
      * 店舗一覧を表示するメソッド（ページネーション対応）。
      */
     @GetMapping
-    public String index(
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "keyword", required = false) String keyword,
-            Model model) {
-
+    public String index(@RequestParam(value = "page", defaultValue = "0") int page,
+                        @RequestParam(value = "keyword", required = false) String keyword,
+                        Model model) {
         Page<Shop> shopPage = shopService.findShops(PageRequest.of(page, 10), keyword);
-
         model.addAttribute("shopPage", shopPage);
         model.addAttribute("keyword", keyword);
-
         return "admin/shops/index";
     }
 
@@ -75,8 +73,11 @@ public class AdminShopController {
     @GetMapping("/{id}/edit")
     public String editShop(@PathVariable Integer id, Model model) {
         Shop shop = shopService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid shop ID: " + id));
-        
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id));
+
+        // デバッグ用ログ
+        System.out.println("Editing shop: " + shop.getName());
+
         ShopEditForm shopEditForm = new ShopEditForm();
         shopEditForm.setId(shop.getId());
         shopEditForm.setName(shop.getName());
@@ -91,7 +92,7 @@ public class AdminShopController {
         shopEditForm.setRegularHoliday(shop.getRegularHoliday());
 
         model.addAttribute("shopEditForm", shopEditForm);
-        model.addAttribute("shop", shop); // 追加
+        model.addAttribute("shop", shop);
         return "admin/shops/edit";
     }
 
@@ -99,8 +100,16 @@ public class AdminShopController {
      * 店舗情報を更新するメソッド。
      */
     @PostMapping("/{id}")
-    public String updateShop(@PathVariable Integer id, @Valid @ModelAttribute ShopEditForm shopEditForm, BindingResult bindingResult) {
+    public String updateShop(@PathVariable Integer id, @Valid @ModelAttribute ShopEditForm shopEditForm,
+                             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            Shop shop = shopService.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id));
+
+            System.out.println("Validation error in updating shop ID: " + id);
+
+            model.addAttribute("shopEditForm", shopEditForm);
+            model.addAttribute("shop", shop);
             return "admin/shops/edit";
         }
         shopService.update(shopEditForm);
@@ -112,7 +121,11 @@ public class AdminShopController {
      */
     @PostMapping("/{id}/delete")
     public String deleteShop(@PathVariable Integer id) {
-        shopService.deleteById(id);
+        try {
+            shopService.deleteById(id);
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id);
+        }
         return "redirect:/admin/shops";
     }
 }
