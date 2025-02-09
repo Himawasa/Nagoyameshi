@@ -1,6 +1,15 @@
 package com.example.nagoyameshi.form;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 // ShopRegisterFormクラスは、新規店舗登録時にフォームデータを受け取るためのクラスです。
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShopRegisterForm {
 
     // 店舗名を格納するフィールド
@@ -13,7 +22,7 @@ public class ShopRegisterForm {
     private String description;
 
     // 店舗の画像ファイル名を格納するフィールド
-    private String image;
+    private  MultipartFile image;
 
     // 営業時間を格納するフィールド
     private String businessHours;
@@ -33,86 +42,5 @@ public class ShopRegisterForm {
     // 定休日を格納するフィールド
     private String regularHoliday;
 
-    // ゲッターとセッターを以下に記述します。
-    // これらのメソッドを使うことで、フィールド値の取得と設定を行えます。
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getBusinessHours() {
-        return businessHours;
-    }
-
-    public void setBusinessHours(String businessHours) {
-        this.businessHours = businessHours;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getRegularHoliday() {
-        return regularHoliday;
-    }
-
-    public void setRegularHoliday(String regularHoliday) {
-        this.regularHoliday = regularHoliday;
-    }
+  
 }

@@ -1,11 +1,17 @@
 package com.example.nagoyameshi.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.nagoyameshi.entity.Shop;
 import com.example.nagoyameshi.form.ShopEditForm;
@@ -57,6 +63,15 @@ public class ShopService {
     @Transactional
     public void create(ShopRegisterForm shopRegisterForm) {
         Shop shop = new Shop();
+        MultipartFile image = shopRegisterForm.getImage();
+        
+        if (!image.isEmpty()) {
+            String imageName = image.getOriginalFilename(); 
+            String hashedImageName = generateNewFileName(imageName);
+            Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+            copyImageFile(image, filePath);
+            shop.setImage(hashedImageName);
+        }
         shop.setName(shopRegisterForm.getName());
         shop.setDescription(shopRegisterForm.getDescription());
         shop.setPrice(shopRegisterForm.getPrice());
@@ -86,7 +101,24 @@ public class ShopService {
 
         shopRepository.save(shop);
     }
-
+    // UUIDを使って生成したファイル名を返す
+    public String generateNewFileName(String fileName) {
+        String[] fileNames = fileName.split("\\.");                
+        for (int i = 0; i < fileNames.length - 1; i++) {
+            fileNames[i] = UUID.randomUUID().toString();            
+        }
+        String hashedFileName = String.join(".", fileNames);
+        return hashedFileName;
+    }     
+    
+    // 画像ファイルを指定したファイルにコピーする
+    public void copyImageFile(MultipartFile imageFile, Path filePath) {           
+        try {
+            Files.copy(imageFile.getInputStream(), filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }
     /**
      * 店舗データをIDで削除するメソッド。
      * 

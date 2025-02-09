@@ -63,7 +63,6 @@ INDEX VERSION 1.134+C:\TMP\kadai_002\.metadata\.plugins\org.eclipse.jdt.core
 3564278644.index
 745712989.index
 544023629.index
-1461014136.index
 1728118237.index
 3380540653.index
 3571102178.index
