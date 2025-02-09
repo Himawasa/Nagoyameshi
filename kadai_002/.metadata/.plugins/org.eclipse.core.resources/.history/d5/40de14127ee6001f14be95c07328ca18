@@ -16,7 +16,7 @@
                     <div class="col-xl-6 col-lg-8 col-md-10">
                         <h1 class="mb-4 text-center">店舗情報編集</h1>
 
-                        <form th:action="@{/admin/shops/{id}(id=${shopEditForm.getId()})}" th:object="${shopEditForm}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/admin/shops/{id}(id=${shop.getId()})}" th:object="${shop}" method="post" enctype="multipart/form-data">
                             <input type="hidden" th:field="*{id}" />
 
                             <div class="mb-3">

@@ -91,7 +91,6 @@ public class AdminShopController {
         shopEditForm.setRegularHoliday(shop.getRegularHoliday());
 
         model.addAttribute("shopEditForm", shopEditForm);
-        model.addAttribute("shop", shop); // 追加
         return "admin/shops/edit";
     }
 
