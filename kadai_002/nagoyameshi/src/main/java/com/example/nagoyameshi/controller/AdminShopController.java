@@ -31,21 +31,16 @@ import com.example.nagoyameshi.service.ShopService;
 @RequestMapping("/admin/shops")
 public class AdminShopController {
     private final CategoryRepository categoryRepository;
-
-    /**
-     * コンストラクタ
-     * 
-     * @param categoryRepository 店舗リポジトリ
-     */
-    public AdminShopController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private final ShopService shopService;
 
     @Autowired
-    private ShopService shopService;
+    public AdminShopController(CategoryRepository categoryRepository, ShopService shopService) {
+        this.categoryRepository = categoryRepository;
+        this.shopService = shopService;
+    }
 
     /**
-     * 店舗一覧を表示するメソッド（ページネーション対応）。
+     * 店舗一覧ページ
      */
     @GetMapping
     public String index(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -58,23 +53,25 @@ public class AdminShopController {
     }
 
     /**
-     * 新規店舗登録画面を表示するメソッド。
+     * 新規店舗登録ページの表示
      */
     @GetMapping("/register")
     public String newShop(Model model) {
         model.addAttribute("shopRegisterForm", new ShopRegisterForm());
-        model.addAttribute("categories",categoryRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "admin/shops/register";
     }
 
     /**
-     * 新規店舗を登録するメソッド。
+     * 新規店舗を登録
      */
     @PostMapping
-    public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult) {
+    public String createShop(@Valid @ModelAttribute ShopRegisterForm shopRegisterForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
             return "admin/shops/register";
         }
+
         shopService.create(shopRegisterForm);
         return "redirect:/admin/shops";
     }
@@ -92,22 +89,18 @@ public class AdminShopController {
     }
 
     /**
-     * 店舗編集画面を表示するメソッド。
+     * 店舗編集画面を表示するメソッド
      */
     @GetMapping("/{id}/edit")
     public String editShop(@PathVariable Integer id, Model model) {
         Shop shop = shopService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shop not found: " + id));
 
-        // デバッグ用ログ
-        System.out.println("Editing shop: " + shop.getName());
-
         ShopEditForm shopEditForm = new ShopEditForm();
         shopEditForm.setId(shop.getId());
         shopEditForm.setName(shop.getName());
         shopEditForm.setCategoryId(shop.getCategoryId());
         shopEditForm.setDescription(shop.getDescription());
-//        shopEditForm.setImage(shop.getImage());
         shopEditForm.setBusinessHours(shop.getBusinessHours());
         shopEditForm.setPrice(shop.getPrice());
         shopEditForm.setPostalCode(shop.getPostalCode());
@@ -117,11 +110,12 @@ public class AdminShopController {
 
         model.addAttribute("shopEditForm", shopEditForm);
         model.addAttribute("shop", shop);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "admin/shops/edit";
     }
 
     /**
-     * 店舗情報を更新するメソッド。
+     * 店舗情報を更新するメソッド
      */
     @PostMapping("/{id}")
     public String updateShop(@PathVariable Integer id, @Valid @ModelAttribute ShopEditForm shopEditForm,
@@ -132,6 +126,7 @@ public class AdminShopController {
 
             model.addAttribute("shopEditForm", shopEditForm);
             model.addAttribute("shop", shop);
+            model.addAttribute("categories", categoryRepository.findAll());
             return "admin/shops/edit";
         }
         shopService.update(shopEditForm);
@@ -139,7 +134,7 @@ public class AdminShopController {
     }
 
     /**
-     * 店舗を削除するメソッド。
+     * 店舗を削除するメソッド
      */
     @PostMapping("/{id}/delete")
     public String deleteShop(@PathVariable Integer id) {
