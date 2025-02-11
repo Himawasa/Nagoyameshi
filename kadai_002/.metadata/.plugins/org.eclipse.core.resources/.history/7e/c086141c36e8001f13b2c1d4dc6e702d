@@ -64,21 +64,33 @@ public class ShopService {
     public void create(ShopRegisterForm shopRegisterForm) {
         Shop shop = new Shop();
         MultipartFile imageFile = shopRegisterForm.getImage();
-
-        if (imageFile != null && !imageFile.isEmpty()) {
-            String imageName = imageFile.getOriginalFilename();
+        
+        if (!imageFile.isEmpty()) {
+            String imageName = imageFile.getOriginalFilename(); 
             String hashedImageName = generateNewFileName(imageName);
             Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
             copyImageFile(imageFile, filePath);
             shop.setImage(hashedImageName);
         }
-
         shop.setName(shopRegisterForm.getName());
         shop.setDescription(shopRegisterForm.getDescription());
         shop.setPrice(shopRegisterForm.getPrice());
         shop.setPostalCode(shopRegisterForm.getPostalCode());
         shop.setAddress(shopRegisterForm.getAddress());
         shop.setPhoneNumber(shopRegisterForm.getPhoneNumber());
+        
+     // 画像アップロード処理
+        MultipartFile image = shopEditForm.getImage();
+        if (image != null && !image.isEmpty()) {
+            String imageName = image.getOriginalFilename(); 
+            String hashedImageName = generateNewFileName(imageName);
+            Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
+            copyImageFile(image, filePath);
+            shop.setImage(hashedImageName);  // 新しい画像名をセット
+        }
+        // 画像がアップロードされていない場合は、既存の画像を保持（変更しない）
+        
+        
 
         shopRepository.save(shop);
     }
@@ -100,45 +112,26 @@ public class ShopService {
         shop.setAddress(shopEditForm.getAddress());
         shop.setPhoneNumber(shopEditForm.getPhoneNumber());
 
-        // 画像のアップロード処理
-        MultipartFile imageFile = shopEditForm.getImage();
-        if (imageFile != null && !imageFile.isEmpty()) {
-            String imageName = imageFile.getOriginalFilename();
-            String hashedImageName = generateNewFileName(imageName);
-            Path filePath = Paths.get("src/main/resources/static/storage/" + hashedImageName);
-            copyImageFile(imageFile, filePath);
-            shop.setImage(hashedImageName);
-        }
-
         shopRepository.save(shop);
     }
-
-    /**
-     * UUIDを使って生成したファイル名を返す
-     * @param fileName 元のファイル名
-     * @return 変換後の一意なファイル名
-     */
+    // UUIDを使って生成したファイル名を返す
     public String generateNewFileName(String fileName) {
-        String[] fileNames = fileName.split("\\.");
+        String[] fileNames = fileName.split("\\.");                
         for (int i = 0; i < fileNames.length - 1; i++) {
-            fileNames[i] = UUID.randomUUID().toString();
+            fileNames[i] = UUID.randomUUID().toString();            
         }
-        return String.join(".", fileNames);
-    }
-
-    /**
-     * 画像ファイルを指定したファイルパスにコピーするメソッド
-     * @param imageFile アップロードされた画像
-     * @param filePath 保存先のパス
-     */
-    public void copyImageFile(MultipartFile imageFile, Path filePath) {
+        String hashedFileName = String.join(".", fileNames);
+        return hashedFileName;
+    }     
+    
+    // 画像ファイルを指定したファイルにコピーする
+    public void copyImageFile(MultipartFile imageFile, Path filePath) {           
         try {
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } 
     }
-
     /**
      * 店舗データをIDで削除するメソッド。
      * 

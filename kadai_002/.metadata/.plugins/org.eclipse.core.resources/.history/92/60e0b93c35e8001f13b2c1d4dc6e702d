@@ -107,7 +107,7 @@ public class AdminShopController {
         shopEditForm.setName(shop.getName());
         shopEditForm.setCategoryId(shop.getCategoryId());
         shopEditForm.setDescription(shop.getDescription());
-//        shopEditForm.setImage(shop.getImage());
+        shopEditForm.setImage(shop.getImage());
         shopEditForm.setBusinessHours(shop.getBusinessHours());
         shopEditForm.setPrice(shop.getPrice());
         shopEditForm.setPostalCode(shop.getPostalCode());
