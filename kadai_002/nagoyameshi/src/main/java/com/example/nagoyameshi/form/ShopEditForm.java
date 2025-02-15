@@ -1,5 +1,8 @@
 package com.example.nagoyameshi.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -14,38 +17,45 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ShopEditForm {
 
-    // 店舗IDを格納するフィールド（編集対象の店舗を識別）
-    private Integer id; // 修正: LongからIntegerに変更
+    /** 店舗ID（編集対象の店舗を識別するために必須） */
+    @NotNull
+    private Integer id;
 
-    // 店舗名
+    /** 店舗名（必須） */
+    @NotBlank
     private String name;
 
-    // カテゴリID
+    /** カテゴリID（必須） */
+    @NotNull
     private Integer categoryId;
 
-    // 店舗説明
+    /** 店舗説明（必須） */
+    @NotBlank
     private String description;
 
-    // 画像ファイル名
-    private MultipartFile image;
-
-    // 営業時間
-    private String businessHours;
-
-    // 平均価格
+    /** 平均価格（必須） */
+    @NotNull
     private Integer price;
 
-    // 郵便番号
+    /** 郵便番号（必須） */
+    @NotBlank
     private String postalCode;
 
-    // 住所
+    /** 住所（必須） */
+    @NotBlank
     private String address;
 
-    // 電話番号
+    /** 電話番号（必須） */
+    @NotBlank
     private String phoneNumber;
 
-    // 定休日
+    /** 営業時間（必須） */
+    @NotBlank
+    private String businessHours;
+
+    /** 定休日（任意） */
     private String regularHoliday;
 
-   
+    /** 画像ファイル（任意） */
+    private MultipartFile image;
 }

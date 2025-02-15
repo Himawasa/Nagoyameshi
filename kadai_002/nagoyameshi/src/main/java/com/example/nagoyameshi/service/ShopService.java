@@ -74,11 +74,14 @@ public class ShopService {
         }
 
         shop.setName(shopRegisterForm.getName());
+        shop.setCategoryId(shopRegisterForm.getCategoryId());
         shop.setDescription(shopRegisterForm.getDescription());
         shop.setPrice(shopRegisterForm.getPrice());
         shop.setPostalCode(shopRegisterForm.getPostalCode());
         shop.setAddress(shopRegisterForm.getAddress());
         shop.setPhoneNumber(shopRegisterForm.getPhoneNumber());
+        shop.setBusinessHours(shopRegisterForm.getBusinessHours());
+        shop.setRegularHoliday(shopRegisterForm.getRegularHoliday());
 
         shopRepository.save(shop);
     }
@@ -94,11 +97,14 @@ public class ShopService {
                 .orElseThrow(() -> new IllegalArgumentException("店舗が見つかりません。ID: " + shopEditForm.getId()));
 
         shop.setName(shopEditForm.getName());
+        shop.setCategoryId(shopEditForm.getCategoryId());
         shop.setDescription(shopEditForm.getDescription());
         shop.setPrice(shopEditForm.getPrice());
         shop.setPostalCode(shopEditForm.getPostalCode());
         shop.setAddress(shopEditForm.getAddress());
         shop.setPhoneNumber(shopEditForm.getPhoneNumber());
+        shop.setBusinessHours(shopEditForm.getBusinessHours());
+        shop.setRegularHoliday(shopEditForm.getRegularHoliday());
 
         // 画像のアップロード処理
         MultipartFile imageFile = shopEditForm.getImage();
@@ -135,7 +141,7 @@ public class ShopService {
         try {
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("画像の保存に失敗しました: " + e.getMessage());
         }
     }
 
@@ -146,6 +152,9 @@ public class ShopService {
      */
     @Transactional
     public void deleteById(Integer id) {
+        if (!shopRepository.existsById(id)) {
+            throw new IllegalArgumentException("削除しようとした店舗が見つかりません。ID: " + id);
+        }
         shopRepository.deleteById(id);
     }
 }
