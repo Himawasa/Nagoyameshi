@@ -1,9 +1,0 @@
-<tbody>
-    <tr th:each="shop : ${houses}">
-        <td th:text="${shop.getId()}"></td> <!-- ID -->
-        <td th:text="${shop.getName()}"></td> <!-- 店舗名 -->
-        <td th:text="${shop.getPostalCode()}"></td> <!-- 郵便番号 -->
-        <td th:text="${shop.getAddress()}"></td> <!-- 住所 -->
-        <td th:text="${shop.getPhoneNumber()}"></td> <!-- 電話番号 -->
-    </tr>
-</tbody>

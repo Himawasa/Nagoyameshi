@@ -1,6 +1,0 @@
-<tbody>
-    <tr th:each="shop : ${houses}">
-        <!-- shop オブジェクト全体をそのまま表示 -->
-        <td colspan="6" th:text="${shop}"></td>
-    </tr>
-</tbody>

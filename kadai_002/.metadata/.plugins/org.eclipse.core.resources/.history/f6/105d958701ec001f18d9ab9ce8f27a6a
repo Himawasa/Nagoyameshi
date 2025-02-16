@@ -1,0 +1,121 @@
+package com.example.nagoyameshi.service;
+
+import java.util.Optional;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.nagoyameshi.entity.User;
+import com.example.nagoyameshi.form.ReservationRegisterForm;
+import com.example.nagoyameshi.repository.RoleRepository;
+import com.example.nagoyameshi.repository.UserRepository;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Event;
+import com.stripe.model.Subscription;
+import com.stripe.model.checkout.Session;
+import com.stripe.param.SubscriptionCancelParams;
+import com.stripe.param.checkout.SessionCreateParams;
+import com.stripe.param.checkout.SessionRetrieveParams;
+
+/**
+ * Stripe に関連する処理を担当するサービスクラス。
+ */
+@Service
+public class StripeService {
+
+    @Value("${stripe.api-key}")
+    private String stripeApiKey;
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
+    public StripeService(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
+
+    /**
+     * Stripeのセッションを作成
+     */
+    public String createStripeSession(String shopName, ReservationRegisterForm reservationRegisterForm,
+                                      HttpServletRequest httpServletRequest) {
+        Stripe.apiKey = stripeApiKey;
+
+        SessionCreateParams params = SessionCreateParams.builder()
+                .setSuccessUrl("https://example.com/success")
+                .setCancelUrl("https://example.com/cancel")
+                .addLineItem(SessionCreateParams.LineItem.builder()
+                        .setQuantity(1L)
+                        .setPrice("price_xxx") // 設定済みのPrice ID
+                        .build())
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .build();
+
+        try {
+            Session session = Session.create(params);
+            return session.getId();
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * Webhook 経由で受信した Stripe の Checkout セッションイベントを処理
+     */
+    public void processSessionCompleted(Event event) {
+        Optional<Session> optionalSession = Optional.ofNullable((Session) event.getDataObjectDeserializer().getObject().orElse(null));
+
+        optionalSession.ifPresent(session -> {
+            try {
+                SessionRetrieveParams params = SessionRetrieveParams.builder()
+                        .addExpand("payment_intent")
+                        .build();
+
+                session = Session.retrieve(session.getId(), params, null);
+
+                if ("subscription".equals(session.getMode())) {
+                    String subscriptionId = session.getSubscription();
+                    Integer userId = Integer.parseInt(session.getMetadata().get("userId"));
+                    Optional<User> optionalUser = userRepository.findById(userId);
+
+                    optionalUser.ifPresent(user -> {
+                        user.setSubscriptionId(subscriptionId);
+                        user.setRole(roleRepository.findByName("ROLE_SUBSCRIBER"));
+                        userRepository.save(user);
+                    });
+                }
+            } catch (StripeException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * ユーザーのサブスクリプションを解除
+     */
+    @Transactional
+    public void unSubscribe(Integer userId) throws StripeException {
+        Stripe.apiKey = stripeApiKey;
+
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return;
+        }
+
+        User user = optionalUser.get();
+        if (user.getSubscriptionId() != null) {
+            Subscription subscription = Subscription.retrieve(user.getSubscriptionId());
+            SubscriptionCancelParams params = SubscriptionCancelParams.builder().build();
+            subscription.cancel(params);
+
+            user.setSubscriptionId(null);
+            user.setRole(roleRepository.findByName("ROLE_GENERAL"));
+            userRepository.save(user);
+        }
+    }
+}

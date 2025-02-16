@@ -1,0 +1,65 @@
+package com.example.nagoyameshi.service;
+
+import java.util.Optional;
+
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.nagoyameshi.entity.Role;
+import com.example.nagoyameshi.entity.User;
+import com.example.nagoyameshi.repository.RoleRepository;
+import com.example.nagoyameshi.repository.UserRepository;
+import com.stripe.model.checkout.Session;
+
+/**
+ * ユーザーに関するビジネスロジックを担当するサービスクラス。
+ * ユーザー登録、更新、認証関連の機能を提供します。
+ */
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    /**
+     * コンストラクタでリポジトリとエンコーダを注入。
+     * @param userRepository ユーザーリポジトリ
+     * @param roleRepository ロールリポジトリ
+     * @param passwordEncoder パスワードエンコーダ
+     */
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    /**
+     * ユーザーを有料会員にアップグレードする
+     * @param session Stripeのサブスクリプションセッション
+     */
+    @Transactional
+    public void upgradeSubscribeAccount(Session session) {
+        String userIdStr = session.getMetadata().get("userId");
+        Integer userId = NumberUtils.toInt(userIdStr);
+
+        // ユーザーIDで既存のユーザーを取得
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return;
+        }
+
+        User user = optionalUser.get();
+        // サブスクリプションIDを設定
+        user.setSubscriptionId(session.getSubscription());
+
+        // 有料会員ロールを取得し、設定
+        Role role = roleRepository.findByName("ROLE_SUBSCRIBER");
+        user.setRole(role);
+
+        // ユーザー情報をデータベースに保存
+        userRepository.save(user);
+    }
+}
