@@ -178,9 +178,43 @@ public class StripeService {
 		resource.cancel(params);
 
 		user.setSubscriptionId(null);
+		user.setCustomerId(null);
 		user.setRole(roleRepository.findByName("ROLE_GENERAL"));
 
 		userRepository.save(user);
+	}
+
+	/**
+	 * カスタマーポータルURLを返却する
+	 * @param userId
+	 * @param httpServletRequest
+	 * @return
+	 * @throws StripeException 
+	 */
+	public String createCustomerSupportSession(Integer userId, HttpServletRequest httpServletRequest)
+			throws StripeException {
+		// Stripe API キーを設定（初期化）
+		Stripe.apiKey = stripeApiKey;
+
+		// 現在のリクエスト URL を取得
+		String requestUrl = new String(httpServletRequest.getRequestURL());
+		String successUrl = removeUserPath(requestUrl);
+
+		var opUser = userRepository.findById(userId);
+		if (!opUser.isPresent()) {
+			return "";
+		}
+		User user = opUser.get();
+
+		com.stripe.param.billingportal.SessionCreateParams params = com.stripe.param.billingportal.SessionCreateParams
+				.builder()
+				.setCustomer(user.getCustomerId())
+				.setReturnUrl(successUrl + "/?updateCreditCard") // ポータル利用後のリダイレクトURL
+				.build();
+
+		com.stripe.model.billingportal.Session session = com.stripe.model.billingportal.Session.create(params);
+
+		return session.getUrl(); // カスタマーポータルのURLを返す
 	}
 
 	/**
