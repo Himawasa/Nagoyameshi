@@ -17,6 +17,7 @@ INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (11, '侍 祐子', 'サムライ ユウコ', '601-0761', '京都府南丹市美山町高野X-XX-XX', '090-1234-5678', 'yuko.samurai@example.com', 'password', 1, false);
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '侍 秋美', 'サムライ アキミ', '606-8235', '京都府京都市左京区田中西春菜町X-XX-XX', '090-1234-5678', 'akimi.samurai@example.com', 'password', 1, false);
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '侍 信平', 'サムライ シンペイ', '673-1324', '兵庫県加東市新定X-XX-XX', '090-1234-5678', 'shinpei.samurai@example.com', 'password', 1, false);
+
 -- shopsテーブルへのデータ挿入
 INSERT IGNORE INTO shops (id, category_id, name, image, description, business_hours, price, postal_code, address, phone_number, regular_holiday) VALUES
 (1, 1, 'ひつまぶし本店', 'house01.jpg', '名古屋名物のひつまぶしを提供する老舗。香ばしく焼き上げた鰻が絶品。', '11:00-21:00', 3000, '460-0008', '愛知県名古屋市中区栄X-XX-XX', '052-123-4567', '水曜'),
